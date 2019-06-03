@@ -1,0 +1,113 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html lang="zh-CN">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<style type="text/css">
+</style>
+
+<title>数据展板</title>
+
+</head>
+
+
+<body>
+
+
+	<script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/echarts.min.js"></script>
+	<script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts-gl/echarts-gl.min.js"></script>
+	<script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts-stat/ecStat.min.js"></script>
+	<script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/dataTool.min.js"></script>
+	<script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/china.js"></script>
+	<script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/world.js"></script>
+	<script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/bmap.min.js"></script>
+	<script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/simplex.js"></script>
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script type="text/javascript" src="js/theme/shine.js"></script>
+
+
+	<div id="container" style="height: 100%"></div>
+
+	<script type="text/javascript">
+		var dom = document.getElementById("container");
+		var myChart = echarts.init(dom, "shine");
+		var app = {};
+		option = null;
+		option = {
+		    xAxis: {
+		        type: 'category',
+		        data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+		    },
+		    yAxis: {
+		        type: 'value'
+		    },
+		    series: [{
+		        data: [820, 932, 901, 934, 1290, 1330, 1320],
+		        type: 'line'
+		    }]
+		};
+		;
+		if (option && typeof option === "object") {
+		    myChart.setOption(option, true);
+		}
+    </script>
+    
+    
+    <script type="text/javascript">
+    
+    setInterval(refreshData, 3000);
+    
+    // 刷新数据
+    function refreshData() {
+		
+	}
+    
+    </script>
+
+
+	<script type="text/javascript">
+    
+		function commitInfo() {
+		
+			$.ajax({
+	            url:"actualizeCommit", 
+	            data:{
+	            	"customerName":$("#customerNameInput").val(),
+	            	"customerPhone":$("#customerPhoneInput").val(),
+	            	"companyName":$("#companyNameInput").val(),
+	            	"companyTitle":$("#companyTitleInput").val(),
+	            	"totalScore":totalScoreStr,
+	            	"mannerScore":mannerScoreStr,
+	            	"timeScore":timeScoreStr,
+	            	"delayScore":delayScoreStr,
+	            	"opinion":$("#opinionText").val()
+	            },
+	            type:"POST", 
+	            error:function(xmlHttpRequest, error) { 
+	            	$.hideLoading();
+	            	window.location.href='failure.html';
+	            },
+	            success:function(resData) {
+	            	$.hideLoading(); 
+	            	
+	                if (resData == 1) {
+	                	window.location.href='html/success.html';
+	                } else {
+	                	window.location.href='html/failure.html';
+	                }
+	                
+	            }
+        });
+    
+    
+    </script>
+
+
+
+
+
+</body>
+
+</html>

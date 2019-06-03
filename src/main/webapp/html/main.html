@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>数据展板</title>
+
+<link rel="stylesheet" type="text/css" href="css/style.css" />
+
+</head>
+
+<body>
+	<script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/echarts.min.js"></script>
+	<script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts-gl/echarts-gl.min.js"></script>
+	<script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts-stat/ecStat.min.js"></script>
+	<script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/dataTool.min.js"></script>
+	<script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/china.js"></script>
+	<script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/world.js"></script>
+	<script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/bmap.min.js"></script>
+	<script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/simplex.js"></script>
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script type="text/javascript" src="js/theme/shine.js"></script>
+	<script type="text/javascript" src="js/deviceInfo.js"></script>
+
+
+	<div class="flex-wrap">
+		<div id="div1" class="flex-item-1"></div>
+		<div class="flex-item-1"></div>
+		<div class="flex-item-1"></div>
+		<div class="flex-item-2"></div>
+
+		<!-- 设备运行情况 -->
+		<div class="flex-item-2">
+			<p class="title">设备运行情况</p>
+
+			<div id="div5">
+				<div class="div5-item" id="div51"></div>
+				<div class="div5-item" id="div52"></div>
+			</div>
+
+		</div>
+
+		<div id="div6" class="flex-item-2"></div>
+	</div>
+
+	<script type="text/javascript">
+		// 第一次进入页面首先刷新一遍数据
+		window.onload = function() {
+			refreshData();
+
+			// 后续每隔一定时间自动刷新所有数据
+			setInterval(refreshData, 60000);
+		};
+
+		// 刷新数据统一入口
+		function refreshData() {
+			mobileBusiness();
+			getDeviceInfo();
+		}
+	</script>
+
+	<!-- 移动业务办理情况 -->
+	<script type="text/javascript">
+		function mobileBusiness() {
+			var myChart = echarts.init(document.getElementById("div1"), "shine");
+			var app = {};
+			option = null;
+			option = {
+				xAxis : {
+					type : 'category',
+					data : [ 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun' ]
+				},
+				yAxis : {
+					type : 'value'
+				},
+				series : [ {
+					data : [ 820, 932, 901, 934, 1290, 1330, 1320 ],
+					type : 'line'
+				} ]
+			};
+			;
+			if (option && typeof option === "object") {
+				myChart.setOption(option, true);
+			}
+		}
+	</script>
+
+	<!-- 设备运行情况 -->
+	<script type="text/javascript">
+		
+		function getDeviceInfo() {
+			
+			$.ajax({
+	            url:"getDeviceInfo",
+	            type:"GET",
+	            error:function(xmlHttpRequest, error) {
+	            	
+	            },
+	            success:function(resData) {
+	            	showDeviceInfo("div51");
+	            }
+	        });
+			
+			
+			
+			
+			
+			
+		}
+	
+	</script>
+
+
+
+</body>
+</html>
