@@ -9,19 +9,19 @@ public interface BusinessService {
 	public List<Map<String, Object>> businessApply();
 
 	// 截止实时移动增值业务累计办理量
-	public List<Map<String, Object>> businessCount();
+	public Long businessCount();
 
 	// 本周各项移动增值业务办理量（周日-周六）
 	public List<Map<String, Object>> businessWeek();
 
 	// 本周移动增值业务累计办理量（周日-周六）
-	public List<Map<String, Object>> businessWeekCount();
+	public Long businessWeekCount();
 
 	// 本月各项移动增值业务办理量
 	public List<Map<String, Object>> businessMonth();
 
 	// 本月移动增值业务累计办理量
-	public List<Map<String, Object>> businessMonthCount();
+	public Long businessMonthCount();
 
 	// 近5周周办理理量量和周环比
 	public List<Map<String, Object>> businessWeekCircle();

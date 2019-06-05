@@ -28,7 +28,7 @@ function genRainbowOption1() {
 		tooltip : {
 			trigger : 'axis',
 			axisPointer : {
-				type : 'shadow'
+				type : 'cross'
 			}
 		},
 		grid : {
@@ -75,13 +75,13 @@ function genRainbowOption1() {
 function showRainbowInfo2(divId, resp) {
 	var chart = echarts.init(document.getElementById(divId), "shine");
 	var app = {};
-	var option = genRainbowOption2(resp.data);
+	var option = genRainbowOption2(resp);
 	if (option && typeof option === "object") {
 		chart.setOption(option, true);
 	}
 }
 
-function genRainbowOption2(data) {
+function genRainbowOption2(resp) {
 	option = {
 		color : [ '#ffbe46' ],
 		title : {
@@ -118,10 +118,10 @@ function genRainbowOption2(data) {
 		},
 		xAxis : [ {
 			type : 'category',
-			data : [ '1月', '2月', '3月', '4月', '5月', '6月', '7月' ],
-			axisPointer : {
-				type : 'shadow'
-			}
+			data : resp.DT,
+			axisTick: {
+                alignWithLabel: true
+            },
 		} ],
 		yAxis : [ {
 			type : 'value',
@@ -132,6 +132,9 @@ function genRainbowOption2(data) {
 			type : 'value',
 			axisLabel : {
 				formatter : '{value}%'
+			},
+			splitLine : {
+				show : false,
 			}
 		} ],
 		series : [ {
@@ -154,12 +157,12 @@ function genRainbowOption2(data) {
 					} ], false)
 				}
 			},
-			data : [ 2.6, 5.9, 9.0, 26.4, 28.7, 70.7, 175.6 ]
+			data : resp.Total_user
 		}, {
 			name : '用户活跃度',
 			type : 'line',
 			yAxisIndex : 1,
-			data : [ 2.0, 2.2, 3.3, 4.5, 6.3, 10.2, 20.3 ]
+			data : resp.Activation
 		} ]
 	};
 

@@ -8,7 +8,7 @@ public interface TicketSellService {
 	// 截止实时各面额即开票销售情况
 	public List<Map<String, Object>> ordersSale();
 
-	// 截止实时即开票总销售⾦金金额、总销售票张
+	// 截止实时即开票总销售金额、总销售票张
 	public List<Map<String, Object>> ordersSaleTotal();
 
 	// 截止实时即开票投放量

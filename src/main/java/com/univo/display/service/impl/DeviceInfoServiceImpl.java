@@ -6,6 +6,8 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import com.univo.display.mapper.MainMapper;
@@ -13,6 +15,8 @@ import com.univo.display.service.DeviceInfoService;
 
 @Service
 public class DeviceInfoServiceImpl implements DeviceInfoService {
+	
+	private static final Logger logger = LoggerFactory.getLogger(DeviceInfoServiceImpl.class);
 
 	@Resource
 	public MainMapper mainMapper;

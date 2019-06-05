@@ -2,16 +2,16 @@
  * 即开票
  */
 
-function showTicketInfo1(divId) {
+function showTicketInfo1(divId, resp) {
 	var chart = echarts.init(document.getElementById(divId), "shine");
 	var app = {};
-	var option = genTicketOption1();
+	var option = genTicketOption1(resp);
 	if (option && typeof option === "object") {
 		chart.setOption(option, true);
 	}
 }
 
-function genTicketOption1() {
+function genTicketOption1(data) {
 	option = {
 		title : {
 			text : '即开票趋势图',
@@ -28,10 +28,7 @@ function genTicketOption1() {
 		tooltip : {
 			trigger : 'axis',
 			axisPointer : {
-				type : 'cross',
-				crossStyle : {
-					color : '#999'
-				}
+				type : 'cross'
 			}
 		},
 		grid : {
@@ -43,10 +40,10 @@ function genTicketOption1() {
 		},
 		xAxis : [ {
 			type : 'category',
-			data : [ '1月', '2月', '3月', '4月', '5月' ],
-			axisPointer : {
-				type : 'shadow'
-			}
+			data : data.dtList,
+			axisTick : {
+				alignWithLabel : true
+			},
 		} ],
 		yAxis : [ {
 			type : 'value',
@@ -55,7 +52,7 @@ function genTicketOption1() {
 			}
 		} ],
 		series : [ {
-			name : '用户增长',
+			name : '周销售金额',
 			type : 'bar',
 			barWidth : 40,
 			barGap : '50%',
@@ -71,7 +68,37 @@ function genTicketOption1() {
 					} ], false)
 				}
 			},
-			data : [ 2.6, 5.9, 9.0, 26.4, 28.7 ]
+			data : data.moneyList,
+			label : {
+				normal : {
+					show : true,
+					position : 'top',
+					align : "center",
+					verticalAlign : "middle",
+					formatter : function(params) {
+						var tip;
+						var yy = data.wowList[params.dataIndex] - 0;
+						if (yy > 0) {
+							tip = '{u|环比上升' + yy + '%}\n';
+						} else {
+							tip = '{d|环比下降' + yy + '%}\n';
+						}
+
+						return tip;
+					},
+					rich : {
+						d : {
+							color : '#1f19ce',
+							fontSize : 10,
+						},
+						u : {
+							color : '#cc5ce7',
+							fontSize : 10,
+						}
+					}
+				}
+			}
+
 		} ]
 	};
 
@@ -120,9 +147,9 @@ function genTicketOption2(data) {
 		xAxis : [ {
 			type : 'category',
 			data : [ '1月', '2月', '3月', '4月', '5月' ],
-			axisPointer : {
-				type : 'shadow'
-			}
+			axisTick : {
+				alignWithLabel : true
+			},
 		} ],
 		yAxis : [ {
 			type : 'value',

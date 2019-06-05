@@ -6,6 +6,8 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import com.univo.display.mapper.MainMapper;
@@ -14,6 +16,8 @@ import com.univo.display.service.MainService;
 
 @Service
 public class BusinessServiceImpl implements BusinessService {
+	
+	private static final Logger logger = LoggerFactory.getLogger(BusinessServiceImpl.class);
 
 	@Resource
 	public MainMapper mainMapper;
@@ -38,17 +42,26 @@ public class BusinessServiceImpl implements BusinessService {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Map<String, Object>> businessCount() {
-		StringBuffer sql = new StringBuffer();
-		sql.append(" select count(MLH_GOODS) as YW_count");
-		sql.append(" from t_mobile_lehuo_list");
-		sql.append(" where cast(CreateDate as date) >= '2019-05-01' and CreateDate <= now()");
+	public Long businessCount() {
+		try {
+			StringBuffer sql = new StringBuffer();
+			sql.append(" select count(MLH_GOODS) as YW_count");
+			sql.append(" from t_mobile_lehuo_list");
+			sql.append(" where cast(CreateDate as date) >= '2019-05-01' and CreateDate <= now()");
 
-		return mainMapper.selectBySql(new HashMap() {
-			{
-				put("sql", sql.toString());
-			}
-		});
+			List<Map<String, Object>> list = mainMapper.selectBySql(new HashMap() {
+				{
+					put("sql", sql.toString());
+				}
+			});
+			
+			logger.info("businessCount {}", list.toString());
+			
+			return (Long) list.get(0).get("YW_count");
+		} catch (Exception e) {
+			e.printStackTrace();
+			return 0L;
+		}
 	}
 
 	@SuppressWarnings("unchecked")
@@ -72,19 +85,28 @@ public class BusinessServiceImpl implements BusinessService {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Map<String, Object>> businessWeekCount() {
-		StringBuffer sql = new StringBuffer();
+	public Long businessWeekCount() {
+		try {
+			StringBuffer sql = new StringBuffer();
 
-		sql.append(" select YEARWEEK(date_format(CreateDate,'%Y-%m-%d')) as dt, count(MLH_GOODS) as TYW_count");
-		sql.append(" from t_mobile_lehuo_list");
-		sql.append(" where  YEARWEEK(date_format(CreateDate,'%Y-%m-%d')) = YEARWEEK(now())");
-		sql.append(" group by dt");
+			sql.append(" select YEARWEEK(date_format(CreateDate,'%Y-%m-%d')) as dt, count(MLH_GOODS) as TYW_count");
+			sql.append(" from t_mobile_lehuo_list");
+			sql.append(" where  YEARWEEK(date_format(CreateDate,'%Y-%m-%d')) = YEARWEEK(now())");
+			sql.append(" group by dt");
 
-		return mainMapper.selectBySql(new HashMap() {
-			{
-				put("sql", sql.toString());
-			}
-		});
+			List<Map<String, Object>> list = mainMapper.selectBySql(new HashMap() {
+				{
+					put("sql", sql.toString());
+				}
+			});
+			
+			logger.info("businessWeekCount {}", list.toString());
+			
+			return (Long) list.get(0).get("TYW_count");
+		} catch (Exception e) {
+			e.printStackTrace();
+			return 0L;
+		}
 	}
 
 	@SuppressWarnings("unchecked")
@@ -108,19 +130,28 @@ public class BusinessServiceImpl implements BusinessService {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Map<String, Object>> businessMonthCount() {
-		StringBuffer sql = new StringBuffer();
+	public Long businessMonthCount() {
+		try {
+			StringBuffer sql = new StringBuffer();
 
-		sql.append(" select DATE_FORMAT( CreateDate, '%Y%m' )as dt, count(MLH_GOODS) as TYW_count");
-		sql.append(" from t_mobile_lehuo_list");
-		sql.append(" where DATE_FORMAT( CreateDate, '%Y%m' ) = DATE_FORMAT( CURDATE( ) , '%Y%m' )");
-		sql.append(" group by dt");
+			sql.append(" select DATE_FORMAT( CreateDate, '%Y%m' )as dt, count(MLH_GOODS) as TYW_count");
+			sql.append(" from t_mobile_lehuo_list");
+			sql.append(" where DATE_FORMAT( CreateDate, '%Y%m' ) = DATE_FORMAT( CURDATE( ) , '%Y%m' )");
+			sql.append(" group by dt");
 
-		return mainMapper.selectBySql(new HashMap() {
-			{
-				put("sql", sql.toString());
-			}
-		});
+			List<Map<String, Object>> list = mainMapper.selectBySql(new HashMap() {
+				{
+					put("sql", sql.toString());
+				}
+			});
+			
+			logger.info("businessMonthCount {}",list.toString());
+			
+			return (Long) list.get(0).get("TYW_count");
+		} catch (Exception e) {
+			e.printStackTrace();
+			return 0L;
+		}
 	}
 
 	@SuppressWarnings("unchecked")

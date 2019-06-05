@@ -6,8 +6,11 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import com.univo.display.controller.MainController;
 import com.univo.display.mapper.MainMapper;
 import com.univo.display.service.MainService;
 import com.univo.display.service.RainbowService;
@@ -17,6 +20,8 @@ public class RainbowServiceImpl implements RainbowService {
 
 	@Resource
 	public MainMapper mainMapper;
+
+	private static final Logger logger = LoggerFactory.getLogger(RainbowServiceImpl.class);
 
 	@SuppressWarnings("unchecked")
 	@Override
@@ -71,6 +76,5 @@ public class RainbowServiceImpl implements RainbowService {
 			}
 		});
 	}
-
 
 }
