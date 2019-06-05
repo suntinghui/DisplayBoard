@@ -1,31 +1,44 @@
 /**
- *  设置信息
+ * 设置信息
  */
 
-function showDeviceInfo(divId) {
+function showDeviceInfo1(divId, resp) {
 	var chart = echarts.init(document.getElementById(divId), "shine");
 	var app = {};
-	var option = genOption();
+	var option = genDeviceOption1(resp.data);
 	if (option && typeof option === "object") {
 		chart.setOption(option, true);
 	}
 }
 
-function genOption() {
+function genDeviceOption1(data) {
 	option = {
+		title : {
+			text : '设备运行情况',
+			textStyle : {
+				color : '#4c4c4c',
+				fontWeight : 'bold',
+				fontFamily : '微软雅黑',
+				fontSize : '14'
+			},
+			left : '30',
+			top : '20',
+			bottom : '10'
+		},
+		color:['#5494fe','#d261fe','#a462ff','#ffa586'],
 		tooltip : {
 			trigger : 'item',
 			formatter : "{a} <br/>{b}: {c} ({d}%)"
 		},
 		legend : {
-			bottom : '-10',
-			data : [ '直接访问', '邮件营销', '联盟广告', '视频广告', '搜索引擎' ]
+			bottom : '10',
+			data : [ '正常运行', '待检修' ]
 		},
 		series : [ {
-			name : '访问来源',
+			name : '设置运行情况',
 			type : 'pie',
-			center: [ '50%', '40%' ],
-			radius : [ '50%', '70%' ],
+			center : [ '50%', '50%' ],
+			radius : [ '30%', '50%' ],
 			avoidLabelOverlap : false,
 			label : {
 				normal : {
@@ -38,22 +51,63 @@ function genOption() {
 					show : false
 				}
 			},
-			data : [ {
-				value : 335,
-				name : '直接访问'
-			}, {
-				value : 310,
-				name : '邮件营销'
-			}, {
-				value : 234,
-				name : '联盟广告'
-			}, {
-				value : 135,
-				name : '视频广告'
-			}, {
-				value : 1548,
-				name : '搜索引擎'
-			} ]
+			data : data
+		} ]
+	};
+
+	return option;
+}
+
+function showDeviceInfo2(divId, resp) {
+	var chart = echarts.init(document.getElementById(divId), "shine");
+	var app = {};
+	var option = genDeviceOption2(resp.data);
+	if (option && typeof option === "object") {
+		chart.setOption(option, true);
+	}
+}
+
+function genDeviceOption2(data) {
+	option = {
+		title : {
+			text : '',
+			textStyle : {
+				color : '#4c4c4c',
+				fontWeight : 'bold',
+				fontFamily : '微软雅黑',
+				fontSize : '14'
+			},
+			left : '30',
+			top : '20',
+			bottom : '10'
+		},
+		color:['#5494fe','#d261fe','#a462ff','#ffa586'],
+		tooltip : {
+			trigger : 'item',
+			formatter : "{a} <br/>{b}: {c} ({d}%)"
+		},
+		legend : {
+			bottom : '10',
+			data : [ '正常运行', '待检修' ]
+		},
+		series : [ {
+			name : '设置运行情况',
+			type : 'pie',
+			center : [ '50%', '50%' ],
+			radius : [ '30%', '50%' ],
+			avoidLabelOverlap : false,
+			label : {
+				normal : {
+					show : false,
+					position : 'center'
+				},
+			},
+			labelLine : {
+				normal : {
+					show : false
+				}
+			},
+			data : data
 		} ]
 	};
 

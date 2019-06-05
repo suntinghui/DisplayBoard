@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
-<meta charset="UTF-8">
+<meta charset="utf-8">
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <title>数据展板</title>
@@ -22,26 +23,226 @@
 	<script type="text/javascript" src="js/jquery.min.js"></script>
 	<script type="text/javascript" src="js/theme/shine.js"></script>
 	<script type="text/javascript" src="js/deviceInfo.js"></script>
+	<script type="text/javascript" src="js/rainbowInfo.js"></script>
+	<script type="text/javascript" src="js/businessInfo.js"></script>
+	<script type="text/javascript" src="js/ticketInfo.js"></script>
 
 
 	<div class="flex-wrap">
-		<div id="div1" class="flex-item-1"></div>
-		<div class="flex-item-1"></div>
-		<div class="flex-item-1"></div>
-		<div class="flex-item-2"></div>
-
-		<!-- 设备运行情况 -->
-		<div class="flex-item-2">
-			<p class="title">设备运行情况</p>
-
-			<div id="div5">
-				<div class="div5-item" id="div51"></div>
-				<div class="div5-item" id="div52"></div>
+		<!-- 彩红用户情况 -->
+		<div class="flex-item-1">
+			<div class="div1">
+				<div class="div1-item" id="div11"></div>
+				<div class="div1-item" id="div12"></div>
 			</div>
 
 		</div>
 
-		<div id="div6" class="flex-item-2"></div>
+		<!-- 业务办理量 -->
+		<div class="flex-item-1">
+			<div class="div1">
+				<span class="title">业务办理量</span>
+				<!-- 业务办理量 -->
+				<div class="div2-item" id="div21">
+
+					<div class="div2-child">
+						<span class="span-block" style="color: #ffbe46; font-size: 30px;">2</span> <span class="span-block text-1">实时累计(笔)</span>
+						<div>
+							<div class="yao">
+								<span class="text-3">咪咕视频</span><span class="text-2 m-l-15">23694</span>
+							</div>
+							<div class="yao">
+								<span class="text-3">咪咕视频</span><span class="text-2 m-l-15">23694</span>
+							</div>
+							<div class="yao">
+								<span class="text-3">咪咕视频</span><span class="text-2 m-l-15">23694</span>
+							</div>
+							<div class="yao">
+								<span class="text-3">咪咕视频</span><span class="text-2 m-l-15">23694</span>
+							</div>
+						</div>
+					</div>
+					<div class="div2-child">
+						<span class="span-block" style="color: #ffa586; font-size: 30px;">245</span> <span class="span-block text-1">实时累计(笔)</span>
+						<div>
+							<div class="yao">
+								<span class="text-3">咪咕</span><span class="text-2 m-l-15">23694</span>
+							</div>
+							<div class="yao">
+								<span class="text-3">咪咕视频</span><span class="text-2 m-l-15">23694</span>
+							</div>
+							<div class="yao">
+								<span class="text-3">咪咕视频</span><span class="text-2 m-l-15">23694</span>
+							</div>
+							<div class="yao">
+								<span class="text-3">咪咕视频</span><span class="text-2 m-l-15">23694</span>
+							</div>
+						</div>
+					</div>
+					<div class="div2-child">
+						<span class="span-block" style="color: #f25d5a; font-size: 30px;">684238</span> <span class="span-block text-1">实时累计(笔)</span>
+						<div>
+							<div class="yao">
+								<span class="text-3">咪咕视频</span><span class="text-2 m-l-15">23694</span>
+							</div>
+							<div class="yao">
+								<span class="text-3">咪咕</span><span class="text-2 m-l-15">23694</span>
+							</div>
+							<div class="yao">
+								<span class="text-3">咪咕视频</span><span class="text-2 m-l-15">23694</span>
+							</div>
+							<div class="yao">
+								<span class="text-3">咪咕视频</span><span class="text-2 m-l-15">23694</span>
+							</div>
+						</div>
+					</div>
+
+				</div>
+
+				<!-- 办理量趋势图 -->
+				<div class="div1-item" id="div22"></div>
+			</div>
+		</div>
+
+
+		<!-- 即开票销售趋势图 -->
+		<div class="flex-item-1">
+			<div class="div1">
+				<div class="div3-item-1" id="div31"></div>
+
+				<div class="div3-item-2" id="div32" style="margin: 10px;">
+					<span class="title">即开票销售量</span>
+
+					<div class="div2-item" style="margin: 10px;">
+
+						<div class="div3-child">
+							<div>
+								<span class="span-block text-4">684</span><span class="span-block text-5">累计(元)/1846张</span>
+							</div>
+							<div>
+								<span class="span-block text-4">1</span><span class="span-block text-5">累计(元)/1846张</span>
+							</div>
+							<div>
+								<span class="span-block text-4">68425</span><span class="span-block text-5">累计(元)/1846张</span>
+							</div>
+						</div>
+
+						<div class="div3-child">
+							<div>
+								<span class="span-block text-6 money-5">6500元</span><span class="span-block text-7">1100张/5000张</span>
+							</div>
+							<div>
+								<span class="span-block text-6 money-5">65元</span><span class="span-block text-7">1张/5张</span>
+							</div>
+							<div>
+								<span class="span-block text-6 money-5">6500元</span><span class="span-block text-7">1100张/5000张</span>
+							</div>
+						</div>
+
+						<div class="div3-child">
+							<div>
+								<span class="span-block text-6 money-10">6500元</span><span class="span-block text-7">1100张/5000张</span>
+							</div>
+							<div>
+								<span class="span-block text-6 money-10">6500元</span><span class="span-block text-7">1100张/5000张</span>
+							</div>
+							<div>
+								<span class="span-block text-6 money-10">6500元</span><span class="span-block text-7">1100张/5000张</span>
+							</div>
+						</div>
+
+						<div class="div3-child">
+							<div>
+								<span class="span-block text-6 money-20">6500元</span><span class="span-block text-7">1100张/5000张</span>
+							</div>
+							<div>
+								<span class="span-block text-6 money-20">65元</span><span class="span-block text-7">1100张/5000张</span>
+							</div>
+							<div>
+								<span class="span-block text-6 money-20">6500元</span><span class="span-block text-7">1张/5张</span>
+							</div>
+						</div>
+
+
+					</div>
+
+
+				</div>
+			</div>
+		</div>
+
+
+		<!-- 代金券发放兑换情况 -->
+		<div class="flex-item-2">
+			<div class="div5">
+				<span class="title">代金券发放、兑换情况</span>
+				<div class="div4-child">
+					<div>
+						<span class="text-8">56947</span><span class="text-13">/</span><span class="text-8">56947</span><br> <span class="text-12">累计兑换/发放量(张)</span>
+					</div>
+					<div>
+						<span class="text-10">56947</span><span class="text-13">/</span><span class="text-11">56947</span><br> <span class="text-12">累计兑换/发放量(张)</span>
+					</div>
+				</div>
+
+				<table>
+
+					<th>
+					<td>福彩联名</td>
+					<td>物美联名</td>
+					<td>移动厅活动</td>
+					<td>音乐节活动</td>
+					</th>
+					<tr>
+						<td>兑换(元)</td>
+						<td>45691</td>
+						<td>45691</td>
+						<td>45691</td>
+						<td>45691</td>
+					</tr>
+					<tr>
+						<td>发放额(元)</td>
+						<td>45691</td>
+						<td>45691</td>
+						<td>45691</td>
+						<td>1</td>
+					</tr>
+					<tr>
+						<td>兑换(张)</td>
+						<td>45691</td>
+						<td>45691</td>
+						<td>2</td>
+						<td>45691</td>
+					</tr>
+					<tr>
+						<td>发放量(张)</td>
+						<td>45691</td>
+						<td>45691</td>
+						<td>45691</td>
+						<td>3</td>
+					</tr>
+				</table>
+
+			</div>
+
+
+		</div>
+
+		<!-- 设备运行情况 -->
+		<div class="flex-item-2">
+			<div class="div5">
+				<div class="div5-item" id="div51"></div>
+				<div class="vline"></div>
+				<div class="div5-item" id="div52"></div>
+			</div>
+		</div>
+
+		<!-- 即开票中奖情况 -->
+		<div class="flex-item-2">
+			<div id="div6">
+				<span class="undo">即开票中奖情况</span>
+			</div>
+		</div>
 	</div>
 
 	<script type="text/javascript">
@@ -55,60 +256,84 @@
 
 		// 刷新数据统一入口
 		function refreshData() {
-			mobileBusiness();
+			getRainbowInfo();
 			getDeviceInfo();
+			getBusinessInfo();
+			getTicketInfo();
 		}
 	</script>
 
 	<!-- 移动业务办理情况 -->
 	<script type="text/javascript">
-		function mobileBusiness() {
-			var myChart = echarts.init(document.getElementById("div1"), "shine");
-			var app = {};
-			option = null;
-			option = {
-				xAxis : {
-					type : 'category',
-					data : [ 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun' ]
+		function getBusinessInfo() {
+			$.ajax({
+				url : "getBusinessInfo",
+				type : "GET",
+				error : function(xmlHttpRequest, error) {
+					console.log("----------------3");
 				},
-				yAxis : {
-					type : 'value'
+				success : function(resp) {
+					console.log(resp);
+					showBusinessInfo2("div22", resp);
+				}
+			});
+		}
+	</script>
+
+	<!-- 彩红信息 -->
+	<script type="text/javascript">
+		function getRainbowInfo() {
+
+			showRainbowInfo1("div11");
+
+			$.ajax({
+				url : "getRainbowInfo",
+				type : "GET",
+				error : function(xmlHttpRequest, error) {
+					console.log("----------------2" + error);
 				},
-				series : [ {
-					data : [ 820, 932, 901, 934, 1290, 1330, 1320 ],
-					type : 'line'
-				} ]
-			};
-			;
-			if (option && typeof option === "object") {
-				myChart.setOption(option, true);
-			}
+				success : function(resp) {
+					console.log(resp);
+					console.log("=====");
+					showRainbowInfo2("div12", resp);
+				}
+			});
 		}
 	</script>
 
 	<!-- 设备运行情况 -->
 	<script type="text/javascript">
-		
 		function getDeviceInfo() {
-			
 			$.ajax({
-	            url:"getDeviceInfo",
-	            type:"GET",
-	            error:function(xmlHttpRequest, error) {
-	            	
-	            },
-	            success:function(resData) {
-	            	showDeviceInfo("div51");
-	            }
-	        });
-			
-			
-			
-			
-			
-			
+				url : "getDeviceInfo",
+				type : "GET",
+				error : function(xmlHttpRequest, error) {
+					console.log("----------------1");
+				},
+				success : function(resp) {
+					console.log(resp);
+					showDeviceInfo1("div51", resp);
+					showDeviceInfo2("div52", resp);
+				}
+			});
 		}
-	
+	</script>
+
+	<!-- 即开票销售 -->
+	<script type="text/javascript">
+		function getTicketInfo() {
+			$.ajax({
+				url : "getTicketInfo",
+				type : "GET",
+				error : function(xmlHttpRequest, error) {
+					console.log("----------------1");
+				},
+				success : function(resp) {
+					console.log(resp);
+					showTicketInfo1("div31", resp);
+				}
+			});
+		}
 	</script>
 
 
