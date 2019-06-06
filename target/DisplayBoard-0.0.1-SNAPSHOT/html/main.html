@@ -9,8 +9,6 @@
 
 <link rel="shortcut icon" href="image/favicon.png">
 <link rel="stylesheet" type="text/css" href="css/style.css" />
-<link rel="stylesheet" type="text/css" href="css/weui.min.css" />
-
 
 </head>
 
@@ -30,12 +28,6 @@
 	<script type="text/javascript" src="js/businessInfo.js"></script>
 	<script type="text/javascript" src="js/ticketInfo.js"></script>
 
-
-	<div class="weui-progress progressBar" >
-		<div class="weui-progress__bar">
-			<div class="weui-progress__inner-bar js_progress" style="width: 100%; background-color:#ffa586;"></div>
-		</div>
-	</div>
 
 	<div class="flex-wrap">
 		<!-- 彩红用户情况 -->
@@ -261,8 +253,6 @@
 
 			// 后续每隔一定时间自动刷新所有数据
 			setInterval(refreshData, 60000);
-			
-			setInterval(timerCount, 1000);
 		};
 
 		// 刷新数据统一入口
@@ -272,19 +262,6 @@
 			getBusinessInfo();
 			getTicketInfo();
 			getVoucherInfo();
-		}
-	</script>
-	
-	<!-- 倒计时 -->
-	<script type="text/javascript">
-		var timer = 60;
-		var timerCount = function() {
-			timer = timer - 1;
-			if (timer < 0) {
-				timer = 60;
-			}
-
-			$(".weui-progress__inner-bar").width(timer / 60 * 100 + "%");
 		}
 	</script>
 

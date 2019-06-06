@@ -1,20 +1,20 @@
 /**
- * 即开票
+ * 彩红信息
  */
 
-function showTicketInfo1(divId, resp) {
+function showRainbowInfo1(divId) {
 	var chart = echarts.init(document.getElementById(divId), "shine");
 	var app = {};
-	var option = genTicketOption1(resp);
+	var option = genRainbowOption1();
 	if (option && typeof option === "object") {
 		chart.setOption(option, true);
 	}
 }
 
-function genTicketOption1(data) {
+function genRainbowOption1() {
 	option = {
 		title : {
-			text : '即开票趋势图',
+			text : '彩红用户增长对比',
 			textStyle : {
 				color : '#4c4c4c',
 				fontWeight : 'bold',
@@ -34,90 +34,58 @@ function genTicketOption1(data) {
 		grid : {
 			left : '3%',
 			right : '4%',
-			bottom : '10',
-			top : '40%',
+			bottom : '0',
 			containLabel : true
 		},
-		xAxis : [ {
-			type : 'category',
-			data : data.dtList,
-			axisTick : {
-				alignWithLabel : true
-			},
-		} ],
-		yAxis : [ {
+		xAxis : {
 			type : 'value',
-			axisLabel : {
-				formatter : '{value}'
-			}
-		} ],
+			boundaryGap : [ 0, 0.01 ]
+		},
+		yAxis : {
+			type : 'category',
+			data : [ '自然增长用户', '引流入驻用户', '业务入驻用户', '活动入驻用户' ]
+		},
 		series : [ {
-			name : '周销售金额',
+			name : '用户数',
 			type : 'bar',
-			barWidth : 40,
-			barGap : '50%',
+			barWidth : 15,
+			barGap : '150%',
 			itemStyle : {
 				normal : {
 					// 颜色渐变函数 前四个参数分别表示四个位置依次为左、下、右、上
-					color : new echarts.graphic.LinearGradient(0, 1, 0, 0, [ {
+					color : new echarts.graphic.LinearGradient(0, 0, 1, 0, [ {
 						offset : 0,
-						color : "#47a2fc" // 0% 处的颜色
+						color : "#ffa586" // 0% 处的颜色
+					}, {
+						offset : 0.5,
+						color : "#f98171" // 60% 处的颜色
 					}, {
 						offset : 1,
-						color : "#7379fc" // 100% 处的颜色
+						color : "#f25d5a" // 100% 处的颜色
 					} ], false)
 				}
 			},
-			data : data.moneyList,
-			label : {
-				normal : {
-					show : true,
-					position : 'top',
-					align : "center",
-					verticalAlign : "middle",
-					formatter : function(params) {
-						var tip;
-						var yy = (data.wowList[params.dataIndex] - 0)*100;
-						if (yy > 0) {
-							tip = '{u|上升' + yy + '%}\n';
-						} else {
-							tip = '{d|下降' + yy + '%}\n';
-						}
-
-						return tip;
-					},
-					rich : {
-						d : {
-							color : '#1f19ce',
-							fontSize : 10,
-						},
-						u : {
-							color : '#cc5ce7',
-							fontSize : 10,
-						}
-					}
-				}
-			}
-
+			data : [ 500, 600, 700, 800 ]
 		} ]
 	};
 
 	return option;
 }
 
-function showTicketInfo2(divId, resp) {
+function showRainbowInfo2(divId, resp) {
 	var chart = echarts.init(document.getElementById(divId), "shine");
 	var app = {};
-	var option = genTicketOption2(resp.data);
+	var option = genRainbowOption2(resp);
 	if (option && typeof option === "object") {
 		chart.setOption(option, true);
 	}
 }
 
-function genTicketOption2(data) {
+function genRainbowOption2(resp) {
 	option = {
+		color : [ '#ffbe46' ],
 		title : {
-			text : '办理量趋势图',
+			text : '彩红用户运营对比',
 			textStyle : {
 				color : '#4c4c4c',
 				fontWeight : 'bold',
@@ -137,6 +105,10 @@ function genTicketOption2(data) {
 				}
 			}
 		},
+		legend : {
+			right : '20',
+			data : [ '用户增长', '用户活跃度' ]
+		},
 		grid : {
 			left : '3%',
 			right : '4%',
@@ -146,38 +118,51 @@ function genTicketOption2(data) {
 		},
 		xAxis : [ {
 			type : 'category',
-			data : [ '1月', '2月', '3月', '4月', '5月' ],
-			axisTick : {
-				alignWithLabel : true
-			},
+			data : resp.DT,
+			axisTick: {
+                alignWithLabel: true
+            },
 		} ],
 		yAxis : [ {
 			type : 'value',
 			axisLabel : {
 				formatter : '{value}'
 			}
+		}, {
+			type : 'value',
+			axisLabel : {
+				formatter : '{value}%'
+			},
+			splitLine : {
+				show : false,
+			}
 		} ],
 		series : [ {
 			name : '用户增长',
 			type : 'bar',
-			barWidth : 40,
-			barGap : '50%',
+			barWidth : 15,
+			barGap : '150%',
 			itemStyle : {
 				normal : {
 					// 颜色渐变函数 前四个参数分别表示四个位置依次为左、下、右、上
 					color : new echarts.graphic.LinearGradient(0, 1, 0, 0, [ {
 						offset : 0,
-						color : "#7278fd" // 0% 处的颜色
+						color : "#ffa586" // 0% 处的颜色
 					}, {
 						offset : 0.5,
-						color : "#41a8fc" // 50% 处的颜色
+						color : "#f98171" // 60% 处的颜色
 					}, {
 						offset : 1,
-						color : "#22c7f8" // 100% 处的颜色
+						color : "#f25d5a" // 100% 处的颜色
 					} ], false)
 				}
 			},
-			data : [ 2.6, 5.9, 9.0, 26.4, 28.7 ]
+			data : resp.Total_user
+		}, {
+			name : '用户活跃度',
+			type : 'line',
+			yAxisIndex : 1,
+			data : resp.Activation
 		} ]
 	};
 
