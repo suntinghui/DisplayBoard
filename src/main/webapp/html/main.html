@@ -114,17 +114,17 @@
 				<div class="div3-item-2" id="div32" style="margin: 10px;">
 					<span class="title">即开票销售量</span>
 
-					<div class="div2-item" style="margin: 10px;">
+					<div class="div2-item" style="margin-top: 10px; margin-bottom: 10px;">
 
 						<div class="div3-child">
 							<div>
-								<span class="span-block text-4" id="realtimeTotalMoney">0</span><span class="span-block text-5" id="realtimeTotalCount">实时(元)/0张</span>
+								<span class="span-block text-4" id="realtimeTotalMoney">0</span><span class="span-block text-5" id="realtimeTotalCount">实时/0张</span>
 							</div>
 							<div>
-								<span class="span-block text-4" id="weekTotalMoney">0</span><span class="span-block text-5" id="weekTotalCount">本周(元)/0张</span>
+								<span class="span-block text-4" id="weekTotalMoney">0</span><span class="span-block text-5" id="weekTotalCount">本周/0张</span>
 							</div>
 							<div>
-								<span class="span-block text-4" id="monthTotalMoney">0</span><span class="span-block text-5" id="monthTotalCount">本月(元)/0张</span>
+								<span class="span-block text-4" id="monthTotalMoney">0</span><span class="span-block text-5" id="monthTotalCount">本月/0张</span>
 							</div>
 						</div>
 
@@ -287,7 +287,7 @@
 							return;
 						
 						var title = resp.realTimeList[index]['Product_name'];
-						if (title.length>4) {
+						if (title.length>5) {
 							title = title.substring(0, 5);
 						}
 						
@@ -299,7 +299,7 @@
 					$('.weekbus').each(function(index, element) {
 						if (index<resp.weekList.length) {
 							var title = resp.weekList[index]['Product_name'];
-							if (title.length>4) {
+							if (title.length>5) {
 								title = title.substring(0, 5);
 							}
 							
@@ -312,7 +312,7 @@
 					$('.monthbus').each(function(index, element) {
 						if (index<resp.monthList.length) {
 							var title = resp.monthList[index]['Product_name'];
-							if (title.length>4) {
+							if (title.length>5) {
 								title = title.substring(0, 5);
 							}
 							
@@ -382,13 +382,16 @@
 					
 					// 总
 					$('#realtimeTotalMoney').html(resp.realtimeSellTotal[0]['TT_money']);
-					$('#realtimeTotalCount').html('实时(元)/'+resp.realtimeSellTotal[0]['TT_num']+"张");
+					$('#realtimeTotalMoney').css("color", "#7379fe");
+					$('#realtimeTotalCount').html('实时/'+resp.realtimeSellTotal[0]['TT_num']+"张");
 					
 					$('#weekTotalMoney').html(resp.weekSellTotal[0]['TT_money']);
-					$('#weekTotalCount').html('本周(元)/'+resp.weekSellTotal[0]['TT_num']+"张");
+					$('#weekTotalMoney').css("color", "#71adfc");
+					$('#weekTotalCount').html('本周/'+resp.weekSellTotal[0]['TT_num']+"张");
 					
 					$('#monthTotalMoney').html(resp.monthSellTotal[0]['MTT_money']);
-					$('#monthTotalCount').html('本月(元)/'+resp.monthSellTotal[0]['MTT_num']+"张");
+					$('#monthTotalMoney').css("color", "#47a2fc");
+					$('#monthTotalCount').html('本月/'+resp.monthSellTotal[0]['MTT_num']+"张");
 					
 					var realtimeData = new Array(0,0,0,0,0,0,0,0,0);
 					var weekData = new Array(0,0,0,0,0,0,0,0,0);

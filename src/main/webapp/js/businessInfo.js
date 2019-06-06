@@ -82,9 +82,9 @@ function genBusinessOption2(data) {
 						var tip;
 						var yy = data.wowList[params.dataIndex] - 0;
 						if (yy > 0) {
-							tip = '{u|环比上升' + yy + '%}\n';
+							tip = '{u|上升' + yy + '%}\n';
 						} else {
-							tip = '{d|环比下降' + yy + '%}\n';
+							tip = '{d|下降' + yy + '%}\n';
 						}
 
 						return tip;
