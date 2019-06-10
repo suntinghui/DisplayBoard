@@ -25,7 +25,7 @@ function genDeviceOption1(data) {
 			top : '20',
 			bottom : '10'
 		},
-		color:['#a462ff','#ffa586','#5494fe','#d261fe'],
+		color:['#5494fe','#ffa586','#a462ff','#d261fe'],
 		tooltip : {
 			trigger : 'item',
 			formatter : "{a} <br/>{b}: {c} ({d}%)"
@@ -81,7 +81,7 @@ function genDeviceOption2(data) {
 			top : '20',
 			bottom : '10'
 		},
-		color:['#a462ff','#ffa586','#5494fe','#d261fe'],
+		color:['#5494fe','#ffa586','#a462ff','#d261fe'],
 		tooltip : {
 			trigger : 'item',
 			formatter : "{a} <br/>{b}: {c} ({d}%)"

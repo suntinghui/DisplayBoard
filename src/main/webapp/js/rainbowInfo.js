@@ -107,7 +107,7 @@ function genRainbowOption2(resp) {
 		},
 		legend : {
 			right : '20',
-			data : [ '用户增长', '用户活跃度' ]
+			data : [ '用户总数', '用户活跃度' ]
 		},
 		grid : {
 			left : '3%',
@@ -138,7 +138,7 @@ function genRainbowOption2(resp) {
 			}
 		} ],
 		series : [ {
-			name : '用户增长',
+			name : '用户总数',
 			type : 'bar',
 			barWidth : 15,
 			barGap : '150%',
