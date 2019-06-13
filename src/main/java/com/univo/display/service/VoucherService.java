@@ -6,10 +6,13 @@ import java.util.Map;
 
 public interface VoucherService {
 
-	// 截止实时因移动增值业务发放代金券张数
-	public Long voucherTotal();
+	// 厅店活动代金券累计发放张数、累计发放金额
+	public List<Map<String, Object>> activeTotal();
 
-	// 截止实时代金券兑换总金额
-	public BigDecimal voucherMoney();
+	// 代金券累计兑换金额（元）
+	public BigDecimal voucherTotalMoney();
+	
+	// 累计发放量（张）、累计发放金额（元）
+	public List<Map<String, Object>> total();
 
 }

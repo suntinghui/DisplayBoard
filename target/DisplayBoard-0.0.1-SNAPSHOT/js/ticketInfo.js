@@ -79,9 +79,9 @@ function genTicketOption1(data) {
 						var tip;
 						var yy = (data.wowList[params.dataIndex] - 0)*100;
 						if (yy > 0) {
-							tip = '{u|上升' + yy + '%}\n';
+							tip = '{u|上升' + yy.toFixed(0) + '%}\n';
 						} else {
-							tip = '{d|下降' + yy + '%}\n';
+							tip = '{d|下降' + yy.toFixed(0) + '%}\n';
 						}
 
 						return tip;

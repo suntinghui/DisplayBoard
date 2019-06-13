@@ -21,48 +21,61 @@ public class VoucherServiceImpl implements VoucherService {
 	public MainMapper mainMapper;
 
 	@Override
-	public Long voucherTotal() {
-		try {
-			StringBuffer sql = new StringBuffer();
+	public List<Map<String, Object>> activeTotal() {
+		StringBuffer sql = new StringBuffer();
+		sql.append(" select count(MLH_CPUid) as CP_num");
+		sql.append(" from t_mobile_lehuo_list");
+		sql.append(" where MLH_CPUid is not null");
 
-			sql.append(" select count(MLH_CPUid) as CP_num");
-			sql.append(" from t_mobile_lehuo_list");
-			sql.append(" where MLH_CPUid is not null");
 
-			List<Map<String, Object>> list = mainMapper.selectBySql(new HashMap() {
-				{
-					put("sql", sql.toString());
-				}
-			});
-			return (Long) list.get(0).get("CP_num");
-		} catch (Exception e) {
-			e.printStackTrace();
-			return 0L;
-		}
+		return mainMapper.selectBySql(new HashMap() {
+			{
+				put("sql", sql.toString());
+			}
+		});
 	}
 
 	@Override
-	public BigDecimal voucherMoney() {
+	public BigDecimal voucherTotalMoney() {
 		try {
 			StringBuffer sql = new StringBuffer();
-
+			
 			sql.append(" select sum(a.ODER_CoupMoney) as CP_money");
 			sql.append(" from t_shop_order_info a join t_shop_order_detail b");
 			sql.append(" on a.ODER_Uid = b.ODDT_ODUid");
 			sql.append(" where cast(a.CreateDate as date) >= '2019-05-01' and a.CreateDate <= now()");
 			sql.append(" and a.ODER_SPUid in (select SHOP_Uid from t_shop_shop_info where SHOP_State = 1)");
 
-			List<Map<String, Object>> list = mainMapper.selectBySql(new HashMap() {
+			
+			List<Map<String, String>> list =  mainMapper.selectBySql(new HashMap() {
 				{
 					put("sql", sql.toString());
 				}
 			});
-			return (BigDecimal) list.get(0).get("CP_money");
-		} catch (Exception e) {
-			e.printStackTrace();
-
-			return new BigDecimal(0.00);
+			return new BigDecimal(list.get(0).get("CP_money"));
+		} catch(Exception e) {
+			return BigDecimal.valueOf(0L);
 		}
+	}
+
+	@Override
+	public List<Map<String, Object>> total() {
+		StringBuffer sql = new StringBuffer();
+		
+		sql.append(" select count(COUP_Title) Tot_p,sum(COUP_Money) Tot_money");
+		sql.append(" from");
+		sql.append(" (select COUP_Title,b.COUP_Money");
+		sql.append(" from t_customer_coupon_list a");
+		sql.append(" join t_customer_coupon_info b");
+		sql.append(" on a.CPLS_CPUid=b.COUP_Uid");
+		sql.append(" where date(a.CreateDate)>='2019-05-01' and b.COUP_Type in (11,12, 13)) t");
+
+
+		return mainMapper.selectBySql(new HashMap() {
+			{
+				put("sql", sql.toString());
+			}
+		});
 	}
 
 }
