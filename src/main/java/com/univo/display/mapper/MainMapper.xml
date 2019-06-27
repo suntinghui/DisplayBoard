@@ -4,9 +4,27 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.univo.display.mapper.MainMapper">
+
+	<select id="selectBySql" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+		${sql}
+	</select>
 	
-	<select id="selectBySql" resultType="java.util.HashMap" parameterType="java.util.HashMap">  
-     ${sql}
-  </select>
+	<select id="getYidongList" resultType="com.univo.display.pojo.YidongInfo">
+		${sql}
+	</select>
+	
+	<select id="getTicaiList" resultType="com.univo.display.pojo.TicaiInfo">
+		${sql}
+	</select>
+	
+	<select id="getFucai8List" resultType="com.univo.display.pojo.Fucai8Info">
+		${sql}
+	</select>
+	
+	<select id="getFucai9List" resultType="com.univo.display.pojo.Fucai9Info">
+		${sql}
+	</select>
+
+
 
 </mapper>
