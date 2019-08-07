@@ -545,6 +545,13 @@
 	<script type="text/javascript">
 		// 第一次进入页面首先刷新一遍数据
 		window.onload = function() {
+			
+			// 初始化显示
+			yidong_area.set(getYidongAreaKeyArr());
+			yidong_type.set(getYidongTypeKeyArr());
+			toggelCheck('yidong')
+			
+			getYidongInfo();
 
 			// 后续每隔一定时间自动刷新所有数据
 			setInterval(refreshData, 24*60*60*1000);
