@@ -148,7 +148,6 @@ public class BusinessServiceImpl implements BusinessService {
 			
 			return (Long) list.get(0).get("TYW_count");
 		} catch (Exception e) {
-			e.printStackTrace();
 			return 0L;
 		}
 	}

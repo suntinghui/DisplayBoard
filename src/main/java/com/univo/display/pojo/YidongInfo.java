@@ -7,6 +7,7 @@ public class YidongInfo {
 	private String type;
 	private String area;
 	private String address;
+	private String geo;
 
 	public String getId() {
 		return id;
@@ -48,4 +49,12 @@ public class YidongInfo {
 		this.address = address;
 	}
 
+	public String getGeo() {
+		return geo;
+	}
+
+	public void setGeo(String geo) {
+		this.geo = geo;
+	}
+	
 }

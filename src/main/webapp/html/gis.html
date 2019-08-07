@@ -1,147 +1,145 @@
 <!doctype html>
 <html>
-	<head>
-		<meta charset="utf-8">
-		<meta name="renderer" content="webkit">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-		<meta name="apple-mobile-web-app-status-bar-style" content="black">
-		<meta name="apple-mobile-web-app-capable" content="yes">
-		<meta name="format-detection" content="telephone=no">
-		
-		<title>GIS信息展示</title>
-		
-		<link rel="stylesheet" href="css/gis.css" />
-		<link rel="stylesheet" href="dist/layui/css/layui.css" />
-	</head>
-	<body>
-		<div class="top">
-			<span class="title">展板GIS信息</span>
-			<img src="image/filter.png" id="filterImg" />
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="format-detection" content="telephone=no">
+
+<title>GIS信息展示</title>
+
+<link rel="stylesheet" href="css/gis.css" />
+<link rel="stylesheet" href="dist/layui/css/layui.css" />
+</head>
+<body>
+	<div class="top">
+		<span class="title">展板GIS信息</span> 
+		<img src="image/filter.png" id="filterImg" />
+	</div>
+
+	<!-- 过滤条件部分，放在body最外层-->
+	<form id="filterForm" class="layui-form" style="padding: 20px; display: none;">
+
+		<!-- 移动 -->
+		<div class="layui-form-item">
+			<div class="layui-input-block" style="margin-left: 20px; margin-bottom: 30px;">
+				<input id="yidongCheck" type="checkbox" lay-filter="showType" name="showType" value="yidong" title="移动">
+			</div>
 		</div>
 
-		<!-- 过滤条件部分，放在body最外层-->
-		<form id="filterForm" class="layui-form" style="padding: 20px; display: none;">
-
-			<!-- 移动 -->
-			<div class="layui-form-item">
-				<div class="layui-input-block" style="margin-left: 20px; margin-bottom: 30px;">
-					<input type="checkbox" name="showType" value="yidong" title="移动" checked>
-				</div>
-			</div>
-
-			<div class="layui-form-item m-l-20">
-				<label class="layui-form-label">类型</label>
-				<div class="layui-input-inline select" id="yidong_type"></div>
-				<button type="button" id="yidong_type_all" class="layui-btn layui-btn-sm">全选</button>
-				<button type="button" id="yidong_type_reset" class="layui-btn layui-btn-sm layui-btn-danger">重置</button>
-			</div>
-
-			<div class="layui-form-item m-l-20">
-				<label class="layui-form-label">区域</label>
-				<div class="layui-input-inline select" id="yidong_area"></div>
-				<button type="button" id="yidong_area_all" class="layui-btn layui-btn-sm">全选</button>
-				<button type="button" id="yidong_area_reset" class="layui-btn layui-btn-sm layui-btn-danger">重置</button>
-			</div>
-
-			<div class="hline"></div>
-
-			<!-- 体彩 -->
-			<div class="layui-form-item" style="margin-top: 20px;">
-				<div class="layui-input-block" style="margin-left: 20px; margin-bottom: 30px;">
-					<input type="checkbox" id="ticaiCheck" name="showType" value="ticai" title="体彩" >
-				</div>
-			</div>
-
-			<div class="layui-form-item m-l-20">
-				<label class="layui-form-label">区域</label>
-				<div class="layui-input-inline select" id="ticai_area"></div>
-				<button type="button" id="ticai_area_all" class="layui-btn layui-btn-sm">全选</button>
-				<button type="button" id="ticai_area_reset" class="layui-btn layui-btn-sm layui-btn-danger">重置</button>
-			</div>
-
-			<div class="hline"></div>
-
-			<!-- 福彩2018-->
-			<div class="layui-form-item" style="margin-top: 20px;">
-				<div class="layui-input-block" style="margin-left: 20px; margin-bottom: 30px;">
-					<input type="checkbox" name="showType" value="fucai8" title="福彩2018" >
-				</div>
-			</div>
-
-			<div class="layui-form-item m-l-20">
-				<label class="layui-form-label">店铺类型</label>
-				<div class="layui-input-inline select" id="fucai8_shopType"></div>
-				<button type="button"  id="fucai8_shopType_all" class="layui-btn layui-btn-sm">全选</button>
-				<button type="button" id="fucai8_shopType_reset" class="layui-btn layui-btn-sm layui-btn-danger">重置</button>
-			</div>
-
-			<div class="layui-form-item m-l-20">
-				<label class="layui-form-label">单双机</label>
-				<div class="layui-input-inline select" id="fucai8_danji"></div>
-				<button type="button" id="fucai8_danji_all" class="layui-btn layui-btn-sm">全选</button>
-				<button type="button" id="fucai8_danji_reset" class="layui-btn layui-btn-sm layui-btn-danger">重置</button>
-			</div>
-
-			<div class="layui-form-item m-l-20">
-				<label class="layui-form-label">渠道网点</label>
-				<div class="layui-input-inline select" id="fucai8_wangdian"></div>
-				<button type="button" id="fucai8_wangdian_all" class="layui-btn layui-btn-sm">全选</button>
-				<button type="button" id="fucai8_wangdian_reset" class="layui-btn layui-btn-sm layui-btn-danger">重置</button>
-			</div>
-
-			<div class="hline"></div>
-
-			<!-- 福彩2019 -->
-			<div class="layui-form-item" style="margin-top: 20px;">
-				<div class="layui-input-block" style="margin-left: 20px; margin-bottom: 30px;">
-					<input type="checkbox" name="showType" value="fucai9" title="福彩2019">
-				</div>
-			</div>
-
-			<div class="layui-form-item m-l-20">
-				<label class="layui-form-label">区域</label>
-				<div class="layui-input-inline select" id="fucai9_area"></div>
-				<button type="button" id="fucai9_area_all" class="layui-btn layui-btn-sm">全选</button>
-				<button type="button" id="fucai9_area_reset" class="layui-btn layui-btn-sm layui-btn-danger">重置</button>
-			</div>
-
-			<div class="layui-form-item m-l-20">
-				<label class="layui-form-label">网点类型</label>
-				<div class="layui-input-inline select" id="fucai9_shopType"></div>
-				<button type="button" id="fucai9_shopType_all" class="layui-btn layui-btn-sm">全选</button>
-				<button type="button" id="fucai9_shopType_reset" class="layui-btn layui-btn-sm layui-btn-danger">重置</button>
-			</div>
-
-			<div class="hline"></div>
-
-			<div class="layui-form-item" style="text-align:center; margin-top: 30px;">
-				<div class="layui-input-block">
-					<button type="button" id="okBtn" class="layui-btn" style="padding-left:50px; padding-right: 50px;">确定</button>
-					<button type="button" id="cancelBtn" class="layui-btn layui-btn-primary" style="margin-left: 60px; padding-left:50px; padding-right: 50px;">取消</button>
-				</div>
-			</div>
-
-		</form>
-
-		<div id="map"></div>
-		
-		<div class="footer">
-			<span class="m-l-40"><img src="image/icon-red.png"/> 移动</span>
-			<span class="m-l-40"><img src="image/icon-blue.png"/> 体彩</span>
-			<span class="m-l-40"><img src="image/icon-yellow.png"/> 福彩2018</span>
-			<span class="m-l-40"><img src="image/icon-green.png"/> 福彩2019</span>
+		<div class="layui-form-item m-l-20">
+			<label class="layui-form-label">类型</label>
+			<div class="layui-input-inline select" id="yidong_type"></div>
+			<button type="button" id="yidong_type_all" class="layui-btn layui-btn-sm">全选</button>
+			<button type="button" id="yidong_type_reset" class="layui-btn layui-btn-sm layui-btn-danger">重置</button>
 		</div>
 
-		<script src="dist/layui/layui.js"></script>
-		<script src="js/data.js"></script>
-		<script src="js/map.js"></script>
-		<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-		<script src="https://cache.amap.com/lbs/static/es5.min.js"></script>
-		<script type="text/javascript" src="https://webapi.amap.com/maps?v=1.4.15&key=620b4f4bf7c7b78872ac2cc4070ef1f7&&plugin=AMap.Scale,AMap.OverView,AMap.ToolBar"></script>
-		<script type="text/javascript" src="https://a.amap.com/jsapi_demos/static/demo-center/data/mock_position.js"></script>
+		<div class="layui-form-item m-l-20">
+			<label class="layui-form-label">区域</label>
+			<div class="layui-input-inline select" id="yidong_area"></div>
+			<button type="button" id="yidong_area_all" class="layui-btn layui-btn-sm">全选</button>
+			<button type="button" id="yidong_area_reset" class="layui-btn layui-btn-sm layui-btn-danger">重置</button>
+		</div>
 
-		<script type="text/javascript">
+		<div class="hline"></div>
+
+		<!-- 体彩 -->
+		<div class="layui-form-item" style="margin-top: 20px;">
+			<div class="layui-input-block" style="margin-left: 20px; margin-bottom: 30px;">
+				<input id="ticaiCheck" type="checkbox" lay-filter="showType" name="showType" value="ticai" title="体彩">
+			</div>
+		</div>
+
+		<div class="layui-form-item m-l-20">
+			<label class="layui-form-label">区域</label>
+			<div class="layui-input-inline select" id="ticai_area"></div>
+			<button type="button" id="ticai_area_all" class="layui-btn layui-btn-sm">全选</button>
+			<button type="button" id="ticai_area_reset" class="layui-btn layui-btn-sm layui-btn-danger">重置</button>
+		</div>
+
+		<div class="hline"></div>
+
+		<!-- 福彩2018-->
+		<div class="layui-form-item" style="margin-top: 20px;">
+			<div class="layui-input-block" style="margin-left: 20px; margin-bottom: 30px;">
+				<input id="fucai8Check" type="checkbox" lay-filter="showType" name="showType" value="fucai8" title="福彩2018">
+			</div>
+		</div>
+
+		<div class="layui-form-item m-l-20">
+			<label class="layui-form-label">店铺类型</label>
+			<div class="layui-input-inline select" id="fucai8_shopType"></div>
+			<button type="button" id="fucai8_shopType_all" class="layui-btn layui-btn-sm">全选</button>
+			<button type="button" id="fucai8_shopType_reset" class="layui-btn layui-btn-sm layui-btn-danger">重置</button>
+		</div>
+
+		<div class="layui-form-item m-l-20">
+			<label class="layui-form-label">单双机</label>
+			<div class="layui-input-inline select" id="fucai8_danji"></div>
+			<button type="button" id="fucai8_danji_all" class="layui-btn layui-btn-sm">全选</button>
+			<button type="button" id="fucai8_danji_reset" class="layui-btn layui-btn-sm layui-btn-danger">重置</button>
+		</div>
+
+		<div class="layui-form-item m-l-20">
+			<label class="layui-form-label">渠道网点</label>
+			<div class="layui-input-inline select" id="fucai8_wangdian"></div>
+			<button type="button" id="fucai8_wangdian_all" class="layui-btn layui-btn-sm">全选</button>
+			<button type="button" id="fucai8_wangdian_reset" class="layui-btn layui-btn-sm layui-btn-danger">重置</button>
+		</div>
+
+		<div class="hline"></div>
+
+		<!-- 福彩2019 -->
+		<div class="layui-form-item" style="margin-top: 20px;">
+			<div class="layui-input-block" style="margin-left: 20px; margin-bottom: 30px;">
+				<input id="fucai9Check" type="checkbox" lay-filter="showType" name="showType" value="fucai9" title="福彩2019">
+			</div>
+		</div>
+
+		<div class="layui-form-item m-l-20">
+			<label class="layui-form-label">区域</label>
+			<div class="layui-input-inline select" id="fucai9_area"></div>
+			<button type="button" id="fucai9_area_all" class="layui-btn layui-btn-sm">全选</button>
+			<button type="button" id="fucai9_area_reset" class="layui-btn layui-btn-sm layui-btn-danger">重置</button>
+		</div>
+
+		<div class="layui-form-item m-l-20">
+			<label class="layui-form-label">网点类型</label>
+			<div class="layui-input-inline select" id="fucai9_shopType"></div>
+			<button type="button" id="fucai9_shopType_all" class="layui-btn layui-btn-sm">全选</button>
+			<button type="button" id="fucai9_shopType_reset" class="layui-btn layui-btn-sm layui-btn-danger">重置</button>
+		</div>
+
+		<div class="hline"></div>
+
+		<div class="layui-form-item" style="text-align: center; margin-top: 30px;">
+			<div class="layui-input-block">
+				<button type="button" id="okBtn" class="layui-btn" style="padding-left: 50px; padding-right: 50px;">确定</button>
+				<button type="button" id="cancelBtn" class="layui-btn layui-btn-primary" style="margin-left: 60px; padding-left: 50px; padding-right: 50px;">取消</button>
+			</div>
+		</div>
+
+	</form>
+
+	<div id="map"></div>
+
+	<div class="footer">
+		<span class="m-l-40"><img src="image/icon-red.png" /> 移动</span> <span class="m-l-40"><img src="image/icon-blue.png" /> 体彩</span> <span class="m-l-40"><img src="image/icon-yellow.png" /> 福彩2018</span> <span class="m-l-40"><img src="image/icon-green.png" /> 福彩2019</span>
+	</div>
+
+	<script src="dist/layui/layui.js"></script>
+	<script src="js/data.js"></script>
+	<script src="js/map.js"></script>
+	<script src="js/index.js"></script>
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+	<script src="https://cache.amap.com/lbs/static/es5.min.js"></script>
+	<script type="text/javascript" src="https://webapi.amap.com/maps?v=1.4.15&key=620b4f4bf7c7b78872ac2cc4070ef1f7&&plugin=AMap.Scale,AMap.OverView,AMap.ToolBar"></script>
+	<script type="text/javascript" src="https://a.amap.com/jsapi_demos/static/demo-center/data/mock_position.js"></script>
+
+	<script type="text/javascript">
 			var layer = null;
 			var markers = [];
 			
@@ -150,7 +148,7 @@
 				showLabel: true,
 				expandZoomRange: true,
 				center: [116.397477, 39.908692],
-				viewMode: '2D',
+				viewMode: '3D',
 				pitch: 60,
 				// https://lbs.amap.com/api/javascript-api/example/personalized-map/set-theme-style
 				mapStyle: 'amap://styles/darkblue',
@@ -195,27 +193,48 @@
 				refreshData();
 
 			});
+			
+			var infoWindow = new AMap.InfoWindow({
+				offset: new AMap.Pixel(0, -30),
+				autoMove: true,
+				isCustom: false,
+				closeWhenClickMap:false,
+				size: [200, 0]
+			});
+
+			function markerClick(e) {
+				infoWindow.setContent(e.target.content);
+				infoWindow.open(map, e.target.getPosition());
+				
+				resetCount();
+			}
 		</script>
 
-		<script type="text/javascript">
+	<script type="text/javascript">
 			var filterLayer = null;
+			var closeIndex = 0;
 			$(function($) {
 				$("#filterImg").on('click', function() {
 					layui.use('layer', function() {
+						if (infoWindow.getIsOpen()) {
+							infoWindow.close()
+						}
+						
 						filterLayer = layui.layer;
-
+						
 						filterLayer.open({
 							type: 1,
 							area: ['80%', '85%'],
 							title: "请设置过滤条件",
 							content: $('#filterForm')
 						});
+						closeIndex = filterLayer.index;
 					});
 				});
 			});
 		</script>
 
-		<script type="text/javascript">
+	<script type="text/javascript">
 			var yidong_type, yidong_area, ticai_area, fucai8_shopType, fucai8_danji, fucai8_wangdian, fucai9_area,
 				fucai9_shopType;
 
@@ -230,7 +249,6 @@
 					selectN = layui.selectN,
 					selectM = layui.selectM;
 
-				// 移动类型
 				yidong_type = selectM({
 					elem: '#yidong_type',
 					data: yidong_typeData,
@@ -239,7 +257,6 @@
 					verify: 'required'
 				})
 
-				// 移动区域
 				yidong_area = selectM({
 					elem: '#yidong_area',
 					data: yidong_areaData,
@@ -298,69 +315,117 @@
 			});
 		</script>
 
-		<script>
+	<script>
+			$('#yidong_type').click(function () {
+				toggelCheck('yidong')
+			})
+			
+			$('#yidong_area').click(function () {
+				toggelCheck('yidong')
+			})
+	
 			$('#yidong_area_all').click(function(){
 				yidong_area.set(getYidongAreaKeyArr());
+				toggelCheck('yidong')
 			})
 			
 			$('#yidong_area_reset').click(function(){
 				yidong_area.set();
+				toggelCheck('yidong')
 			})
 			
 			$('#yidong_type_all').click(function(){
 				yidong_type.set(getYidongTypeKeyArr());
+				toggelCheck('yidong')
 			})
 			
 			$('#yidong_type_reset').click(function(){
 				yidong_type.set();
+				toggelCheck('yidong')
+			})
+			
+			$('#ticai_area').click(function(){
+				toggelCheck('ticai')
 			})
 			
 			$('#ticai_area_all').click(function(){
 				ticai_area.set(getTicaiAreaKeyArr());
+				toggelCheck('ticai')
 			})
 			
 			$('#ticai_area_reset').click(function(){
 				ticai_area.set();
+				toggelCheck('ticai')
+			})
+			
+			$('#fucai8_shopType').click(function(){
+				toggelCheck('fucai8')
+			})
+			
+			$('#fucai8_danji').click(function(){
+				toggelCheck('fucai8')
+			})
+			
+			$('#fucai8_wangdian').click(function(){
+				toggelCheck('fucai8')
 			})
 			
 			$('#fucai8_shopType_all').click(function(){
 				fucai8_shopType.set(getFucai8ShopTypeKeyArr());
+				toggelCheck('fucai8')
 			})
 			
 			$('#fucai8_shopType_reset').click(function(){
 				fucai8_shopType.set();
+				toggelCheck('fucai8')
 			})
 			
 			$('#fucai8_danji_all').click(function(){
 				fucai8_danji.set(getFucai8DanjiKeyArr());
+				toggelCheck('fucai8')
 			})
 			
 			$('#fucai8_danji_reset').click(function(){
 				fucai8_danji.set();
+				toggelCheck('fucai8')
 			})
 			
 			$('#fucai8_wangdian_all').click(function(){
 				fucai8_wangdian.set(getFucai8WangdianKeyArr());
+				toggelCheck('fucai8')
 			})
 			
 			$('#fucai8_wangdian_reset').click(function(){
 				fucai8_wangdian.set();
+				toggelCheck('fucai8')
+			})
+			
+			$('#fucai9_area').click(function(){
+				toggelCheck('fucai9')
+			})
+			
+			$('#fucai9_shopType').click(function(){
+				toggelCheck('fucai9')
 			})
 			
 			$('#fucai9_area_all').click(function(){
 				fucai9_area.set(getFucai9AreaKeyArr());
+				toggelCheck('fucai9')
 			})
 			
 			$('#fucai9_area_reset').click(function(){
 				fucai9_area.set();
+				toggelCheck('fucai9')
 			})
 			
 			$('#fucai9_shopType_all').click(function(){
 				fucai9_shopType.set(getFucai9ShopTypeKeyArr());
+				toggelCheck('fucai9')
 			})
 			
 			$('#fucai9_shopType_reset').click(function(){
 				fucai9_shopType.set();
+				toggelCheck('fucai9')
 			})
 			
 			$('#okBtn').click(function() {
@@ -368,19 +433,53 @@
 			})
 			
 			$('#cancelBtn').click(function() {
-				filterLayer.close(filterLayer.index);
+				filterLayer.close(closeIndex);
 			})
 		</script>
-		
-		<script type="text/javascript">
-			function showTips(msg) {
-				layui.use('layer', function() {
-					var layer = layui.layer;
-					layer.msg(msg);
-				});
+
+	<script type="text/javascript">
+			layui.use('form', function () {
+				var form = layui.form;
+				form.on('checkbox(showType)', function(data){
+					 if (data.elem.checked == true) {
+						 toggelCheck(data.elem.value)
+					 }
+					 
+				});  
+			})
+			
+			function toggelCheck(type) {
+				 if (type == 'yidong') {
+					 $("#yidongCheck").prop("checked", true);
+					 $('#ticaiCheck').prop("checked", false);
+					 $('#fucai8Check').prop("checked", false);
+					 $('#fucai9Check').prop("checked", false);
+				 } else  if (type == 'ticai') {
+					 $("#ticaiCheck").prop("checked", true);
+					 $('#yidongCheck').prop("checked", false);
+					 $('#fucai8Check').prop("checked", false);
+					 $('#fucai9Check').prop("checked", false);
+				 } else  if (type == 'fucai8') {
+					 $("#fucai8Check").prop("checked", true);
+					 $('#ticaiCheck').prop("checked", false);
+					 $('#yidongCheck').prop("checked", false);
+					 $('#fucai9Check').prop("checked", false);
+				 } else  if (type == 'fucai9') {
+					 $("#fucai9Check").prop("checked", true);
+					 $('#ticaiCheck').prop("checked", false);
+					 $('#fucai8Check').prop("checked", false);
+					 $('#yidongCheck').prop("checked", false);
+				 }
+				 
+				 resetCount();
+				 
+				 var form = layui.form;
+				 form.render();
 			}
 			
 			function submitAction() {
+				console.log("--"+filterLayer.index)
+				
 				var arr = new Array();
 	            $("input:checkbox[name='showType']:checked").each(function(i){
 	                arr[i] = $(this).val();
@@ -388,8 +487,10 @@
 	
 				if (arr.length > 1) {
 					showTips('由于数据量太大，请只选择一种数据类型')
+					return;
 				} else if (arr.length == 0) {
 					showTips('请选择要展示的数据类型')
+					return;
 				}
 				
 				var showTypeStr = arr[0];
@@ -401,7 +502,7 @@
 						showTips('请选择区域')
 					} else {
 						getYidongInfo();
-						filterLayer.close(filterLayer.index);
+						filterLayer.close(closeIndex);
 					}
 				}
 				
@@ -410,7 +511,7 @@
 						showTips('请选择区域')
 					} else {
 						getTicaiList();
-						filterLayer.close(filterLayer.index);
+						filterLayer.close(closeIndex);
 					}
 				}
 				
@@ -423,7 +524,7 @@
 						showTips('请选择渠道网点')
 					} else {
 						getFucai8List();
-						filterLayer.close(filterLayer.index);
+						filterLayer.close(closeIndex);
 					}
 				}
 				
@@ -434,14 +535,14 @@
 						showTips('请选择网点类型')
 					} else {
 						getFucai9List();
-						filterLayer.close(filterLayer.index);
+						filterLayer.close(closeIndex);
 					}
 				}
 				
 			}
 		</script>
-		
-		<script type="text/javascript">
+
+	<script type="text/javascript">
 		// 第一次进入页面首先刷新一遍数据
 		window.onload = function() {
 
@@ -451,7 +552,7 @@
 
 		// 刷新数据统一入口
 		function refreshData() {
-			markers = [];
+			layer.clear()
 			
 			//getYidongInfo();
 			//getTicaiList();
@@ -459,10 +560,12 @@
 			//getFucai9List();
 		}
 	</script>
-	
+
 	<!-- 移动 -->
 	<script type="text/javascript">
 		function getYidongInfo() {
+			showLoading();
+			
 			$.ajax({
 				url : "getYidongList",
 				type : "POST",
@@ -472,37 +575,33 @@
 				},
 				error : function(xmlHttpRequest, error) {
 					console.log("----------------");
+					hideLoading();
 				},
 				success : function(resp) {
 					console.log(JSON.stringify(resp));
 					
 					var data = resp['yidong'];
 					
-					var infoWindow = new AMap.InfoWindow({
-						offset: new AMap.Pixel(0, -30),
-						autoMove: true,
-						isCustom: false,
-						size: [200, 0]
-					});
-
-					function markerClick(e) {
-						infoWindow.setContent(e.target.content);
-						infoWindow.open(map, e.target.getPosition());
-					}
-					
 					markers = [];
+					layer.clear();
+					
+					showTipWithCtrl('共检索到'+data.length+'条数据', "#filterImg");
 
-					for (var i = 0; i < 1; i++) {
+					for (var i = 0; i < data.length; i++) {
 						var item = data[i];
 						
+						if (item.geo.length < 12) {
+							continue;
+						}
+						
 						var curData = {
-							position: '116.368904, 39.923423',
+							position: item.geo,
 							icon: getImgWithType('yidong')
 						};
 
 						var labelMarker = new AMap.LabelMarker(curData);
 
-						labelMarker.content = '<div>哈哈</div><div>哈哈</div><div>哈哈</div>';
+						labelMarker.content = '<div>简称：'+item.alias+'</div><div>类型：'+item.type+'</div><div>地址：'+item.address+'</div>';
 						labelMarker.on('click', markerClick);
 						labelMarker.emit('click', {
 							target: labelMarker
@@ -513,14 +612,17 @@
 
 					layer.add(markers);
 					
+					hideLoading();
 				}
 			});
 		}
 	</script>
-	
+
 	<!-- 体彩-->
 	<script type="text/javascript">
 		function getTicaiList() {
+			showLoading();
+			
 			$.ajax({
 				url : "getTicaiList",
 				type : "POST",
@@ -529,30 +631,22 @@
 				},
 				error : function(xmlHttpRequest, error) {
 					console.log("----------------");
+					hideLoading();
 				},
 				success : function(resp) {
 					console.log(JSON.stringify(resp));
 					
 					var data = resp['ticai'];
 					
-					var infoWindow = new AMap.InfoWindow({
-						offset: new AMap.Pixel(0, -30),
-						autoMove: true,
-						isCustom: false,
-						size: [200, 0]
-					});
-
-					function markerClick(e) {
-						infoWindow.setContent(e.target.content);
-						infoWindow.open(map, e.target.getPosition());
-					}
-					
 					markers = [];
+					layer.clear();
+					
+					showTipWithCtrl('共检索到'+data.length+'条数据', "#filterImg");
 
 					for (var i = 0; i < data.length; i++) {
 						var item = data[i];
 						
-						if (item.geo.length < 5) {
+						if (item.geo.length < 12) {
 							continue;
 						}
 						
@@ -575,14 +669,17 @@
 
 					layer.add(markers);
 					
+					hideLoading();
 				}
 			});
 		}
 	</script>
-	
+
 	<!-- 福彩8 -->
 	<script type="text/javascript">
 		function getFucai8List() {
+			showLoading();
+			
 			$.ajax({
 				url : "getFucai8List",
 				type : "POST",
@@ -593,30 +690,22 @@
 				},
 				error : function(xmlHttpRequest, error) {
 					console.log("----------------");
+					hideLoading();
 				},
 				success : function(resp) {
 					console.log(JSON.stringify(resp));
 					
 					var data = resp['fucai8'];
 					
-					var infoWindow = new AMap.InfoWindow({
-						offset: new AMap.Pixel(0, -30),
-						autoMove: true,
-						isCustom: false,
-						size: [200, 0]
-					});
-
-					function markerClick(e) {
-						infoWindow.setContent(e.target.content);
-						infoWindow.open(map, e.target.getPosition());
-					}
-					
 					markers = [];
+					layer.clear();
+					
+					showTipWithCtrl('共检索到'+data.length+'条数据', "#filterImg");
 
 					for (var i = 0; i < data.length; i++) {
 						var item = data[i];
 						
-						if (item.geo.length < 5) {
+						if (item.geo.length < 12) {
 							continue;
 						}
 						
@@ -639,14 +728,18 @@
 
 					layer.add(markers);
 					
+					hideLoading();
+					
 				}
 			});
 		}
 	</script>
-	
+
 	<!-- 福彩9 -->
 	<script type="text/javascript">
 		function getFucai9List() {
+			showLoading();
+			
 			$.ajax({
 				url : "getFucai9List",
 				type : "POST",
@@ -656,30 +749,22 @@
 				},
 				error : function(xmlHttpRequest, error) {
 					console.log("----------------");
+					hideLoading();
 				},
 				success : function(resp) {
 					console.log(JSON.stringify(resp));
 					
 					var data = resp['fucai9'];
 					
-					var infoWindow = new AMap.InfoWindow({
-						offset: new AMap.Pixel(0, -30),
-						autoMove: true,
-						isCustom: false,
-						size: [200, 0]
-					});
-
-					function markerClick(e) {
-						infoWindow.setContent(e.target.content);
-						infoWindow.open(map, e.target.getPosition());
-					}
-					
 					markers = [];
+					layer.clear();
+					
+					showTipWithCtrl('共检索到'+data.length+'条数据', "#filterImg");
 
 					for (var i = 0; i < data.length; i++) {
 						var item = data[i];
 						
-						if (item.geo.length < 5) {
+						if (item.geo.length < 12) {
 							continue;
 						}
 						
@@ -702,11 +787,13 @@
 
 					layer.add(markers);
 					
+					hideLoading();
+					
 				}
 			});
 		}
 	</script>
 
 
-	</body>
+</body>
 </html>

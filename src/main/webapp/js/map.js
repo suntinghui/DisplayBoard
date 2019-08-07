@@ -2,13 +2,13 @@ function getImgWithType(type) {
 	var imageName = "image/icon-red.png";
 	
 	if (type === 'yidong') {
-		imageName = "image/icon-red.png"
+		imageName = "image/icon-a.png"
 	} else if (type === 'ticai') {
-		imageName = "image/icon-white.png"
+		imageName = "image/icon-a.png"
 	} else if (type === 'fucai8') {
-		imageName = "image/icon-yellow.png"
+		imageName = "image/icon-b.png"
 	} else if (type === 'fucai9') {
-		imageName = "image/icon-green.png"
+		imageName = "image/icon-b.png"
 	}
 
 	return {
@@ -39,4 +39,31 @@ function showTip (text) {
 	};
 };
 
+function showTips(msg) {
+	layui.use('layer', function() {
+		var layer = layui.layer;
+		layer.msg(msg);
+	});
+}
 
+function showTipWithCtrl (msg, id) {
+	layui.use('layer', function() {
+		var layer = layui.layer;
+		layer.tips(msg, id);
+	});
+}
+
+var loadingIndex = 0;
+function showLoading () {
+	layui.use('layer', function() {
+		var layer = layui.layer;
+		loadingIndex = layer.load(1);
+	});
+}
+
+function hideLoading() {
+	layui.use('layer', function() {
+		var layer = layui.layer;
+		layer.closeAll('loading'); 
+	});
+}

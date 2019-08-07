@@ -404,17 +404,17 @@
 					showTicketInfo1("div31", resp);
 					
 					// 总
-					$('#realtimeTotalMoney').html(resp.realtimeSellTotal[0]['TT_money']);
+					$('#realtimeTotalMoney').html(resp.realtimeSellTotal[0]['CTT_money']);
 					$('#realtimeTotalMoney').css("color", "#7379fe");
-					$('#realtimeTotalCount').html('实时/'+resp.realtimeSellTotal[0]['TT_num']+"张");
+					$('#realtimeTotalCount').html('实时/'+resp.realtimeSellTotal[0]['CTT_num']+"张");
 					
-					$('#weekTotalMoney').html(resp.weekSellTotal[0]['TT_money']);
+					$('#weekTotalMoney').html(resp.weekSellTotal[0]['WTT_money']);
 					$('#weekTotalMoney').css("color", "#71adfc");
-					$('#weekTotalCount').html('本周/'+resp.weekSellTotal[0]['TT_num']+"张");
+					$('#weekTotalCount').html('本周/'+resp.weekSellTotal[0]['WTT_num']+"张");
 					
-					$('#monthTotalMoney').html(resp.monthSellTotal[0]['MTT_money']);
+					$('#monthTotalMoney').html(resp.monthSellTotal[0]['TT_money']);
 					$('#monthTotalMoney').css("color", "#47a2fc");
-					$('#monthTotalCount').html('本月/'+resp.monthSellTotal[0]['MTT_num']+"张");
+					$('#monthTotalCount').html('本月/'+resp.monthSellTotal[0]['TT_num']+"张");
 					
 					var realtimeData = new Array(0,0,0,0,0,0,0,0,0);
 					var weekData = new Array(0,0,0,0,0,0,0,0,0);
@@ -423,14 +423,14 @@
 					for (let index in resp.realtimeSellInfo) {
 						var m = resp.realtimeSellInfo[index];
 						if (m['ptype']==5){
-							realtimeData[0] = m['pmoney'];
-							realtimeData[1] = m['pcount'];
+							realtimeData[0] = m['cpmoney'];
+							realtimeData[1] = m['cpcount'];
 						} else if (m['ptype']==10){
-							realtimeData[3] = m['pmoney'];
-							realtimeData[4] = m['pcount'];
+							realtimeData[3] = m['cpmoney'];
+							realtimeData[4] = m['cpcount'];
 						} else if (m['ptype']==20){
-							realtimeData[6] = m['pmoney'];
-							realtimeData[7] = m['pcount'];
+							realtimeData[6] = m['cpmoney'];
+							realtimeData[7] = m['cpcount'];
 						} 
 					}
 					
@@ -449,14 +449,14 @@
 					for (let index in resp.weekSellInfo) {
 						var m = resp.weekSellInfo[index];
 						if (m['ptype']==5){
-							weekData[0] = m['pmoney'];
-							weekData[1] = m['pcount'];
+							weekData[0] = m['wpmoney'];
+							weekData[1] = m['wpcount'];
 						} else if (m['ptype']==10){
-							weekData[3] = m['pmoney'];
-							weekData[4] = m['pcount'];
+							weekData[3] = m['wpmoney'];
+							weekData[4] = m['wpcount'];
 						} else if (m['ptype']==20){
-							weekData[6] = m['pmoney'];
-							weekData[7] = m['pcount'];
+							weekData[6] = m['wpmoney'];
+							weekData[7] = m['wpcount'];
 						} 
 					}
 					
@@ -474,14 +474,14 @@
 					for (let index in resp.monthSellInfo) {
 						var m = resp.monthSellInfo[index];
 						if (m['ptype']==5){
-							monthData[0] = m['pmoney'];
-							monthData[1] = m['pcount'];
+							monthData[0] = m['mpmoney'];
+							monthData[1] = m['mpcount'];
 						} else if (m['ptype']==10){
-							monthData[3] = m['pmoney'];
-							monthData[4] = m['pcount'];
+							monthData[3] = m['mpmoney'];
+							monthData[4] = m['mpcount'];
 						} else if (m['ptype']==20){
-							monthData[6] = m['pmoney'];
-							monthData[7] = m['pcount'];
+							monthData[6] = m['mpmoney'];
+							monthData[7] = m['mpcount'];
 						} 
 					}
 					
