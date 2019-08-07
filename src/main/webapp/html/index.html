@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="format-detection" content="telephone=no">
+
+<title>数据展板</title>
+
+<style type="text/css">
+iframe {
+	width: 99%;
+	height: 99%;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+}
+</style>
+</head>
+<body>
+
+	<div class='div'>
+		<iframe src="main" id="main" scrolling="no"></iframe>
+	</div>
+
+	<div class='div'>
+		<iframe src="gis" id="gis" scrolling="no"></iframe>
+	</div>
+	
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+	<script src="js/index.js"></script>
+
+	<script type="text/javascript">
+	
+		window.onload = function() {
+			$('.div').eq(1).hide();
+			
+			//changeTimer();
+			//countTimer();
+		}
+	
+	</script>
+
+</body>
+</html>
