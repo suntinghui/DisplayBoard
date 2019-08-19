@@ -5,7 +5,7 @@ public class Fucai8Info {
 	private String id;
 	private String shopNo;
 	private String danji;
-	private String D3;
+	private String d3;
 	private String shuangseqiu;
 	private String kuai3;
 	private String qilecai;
@@ -40,10 +40,10 @@ public class Fucai8Info {
 		this.danji = danji;
 	}
 	public String getD3() {
-		return D3;
+		return d3;
 	}
 	public void setD3(String d3) {
-		D3 = d3;
+		this.d3 = d3;
 	}
 	public String getShuangseqiu() {
 		return shuangseqiu;

@@ -148,7 +148,7 @@
 				showLabel: true,
 				expandZoomRange: true,
 				center: [116.397477, 39.908692],
-				viewMode: '3D',
+				viewMode: '2D',
 				pitch: 60,
 				// https://lbs.amap.com/api/javascript-api/example/personalized-map/set-theme-style
 				mapStyle: 'amap://styles/darkblue',
@@ -581,7 +581,6 @@
 					areaArr : JSON.stringify(yidong_area.values)
 				},
 				error : function(xmlHttpRequest, error) {
-					console.log("----------------");
 					hideLoading();
 				},
 				success : function(resp) {
@@ -608,7 +607,7 @@
 
 						var labelMarker = new AMap.LabelMarker(curData);
 
-						labelMarker.content = '<div>简称：'+item.alias+'</div><div>类型：'+item.type+'</div><div>地址：'+item.address+'</div>';
+						labelMarker.content = '<div>简称：'+item.alias+'</div><div>类型：'+item.type+'</div><div>区域：'+item.area+'</div><div>地址：'+item.address+'</div>';
 						labelMarker.on('click', markerClick);
 						labelMarker.emit('click', {
 							target: labelMarker
@@ -637,7 +636,6 @@
 					areaArr : JSON.stringify(ticai_area.values)
 				},
 				error : function(xmlHttpRequest, error) {
-					console.log("----------------");
 					hideLoading();
 				},
 				success : function(resp) {
@@ -696,7 +694,6 @@
 					wangdianArr: JSON.stringify(fucai8_wangdian.values)
 				},
 				error : function(xmlHttpRequest, error) {
-					console.log("----------------");
 					hideLoading();
 				},
 				success : function(resp) {
@@ -724,7 +721,7 @@
 
 						var labelMarker = new AMap.LabelMarker(curData);
 
-						labelMarker.content = '<div>名称：'+item.shopName+'</div><div>网点类型：'+item.shopType+'</div><div>地址：'+item.address+'</div>';
+						labelMarker.content = '<div>名称：'+item.shopName+'</div><div>网点类型：'+item.shopType+'</div><div>渠道网点：'+item.wangdian+'</div><div>地址：'+item.address+'</div><div>单双机：'+item.danji+'</div><div>3D：'+item.d3+'</div><div>双色球：'+item.shuangseqiu+'</div><div>快3：'+item.kuai3+'</div><div>七乐彩：'+item.qilecai+'</div><div>快乐8：'+item.kuaile8+'</div><div>PK拾：'+item.pk10+'</div><div>即开票开售量：'+item.sellCount+'</div><div>总销售额：'+item.sellTotalMoney+'</div>';
 						labelMarker.on('click', markerClick);
 						labelMarker.emit('click', {
 							target: labelMarker
@@ -755,7 +752,6 @@
 					areaArr : JSON.stringify(fucai9_area.values)
 				},
 				error : function(xmlHttpRequest, error) {
-					console.log("----------------");
 					hideLoading();
 				},
 				success : function(resp) {
@@ -783,7 +779,7 @@
 
 						var labelMarker = new AMap.LabelMarker(curData);
 
-						labelMarker.content = '<div>名称：'+item.shopName+'</div><div>网点类型：'+item.shopType+'</div><div>地址：'+item.address+'</div>';
+						labelMarker.content = '<div>名称：'+item.shopName+'</div><div>网点类型：'+item.shopType+'</div><div>区县：'+item.area+'</div><div>地址：'+item.address+'</div><div>1月：'+item.month1+'</div><div>2月：'+item.month1+'</div><div>3月：'+item.month3+'</div><div>4月：'+item.month4+'</div><div>5月：'+item.month5+'</div><div>6月：'+item.month6+'</div><div>总销量：'+item.sellCount+'</div>';
 						labelMarker.on('click', markerClick);
 						labelMarker.emit('click', {
 							target: labelMarker
