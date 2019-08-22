@@ -12,6 +12,8 @@ public interface MainMapper {
 	
 	List<Map<String, Object>> selectBySql(Map<String, Object> condition);
 	
+	List<YidongInfo> getQudaoList(Map<String, Object> condition);
+	
 	List<YidongInfo> getYidongList(Map<String, Object> condition);
 	
 	List<TicaiInfo> getTicaiList(Map<String, Object> condition);

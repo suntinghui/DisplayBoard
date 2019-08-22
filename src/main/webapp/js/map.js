@@ -1,7 +1,9 @@
 function getImgWithType(type) {
 	var imageName = "image/icon-red.png";
 	
-	if (type === 'yidong') {
+	if (type === 'qudao') {
+		imageName = "image/icon-a.png"
+	} else if (type === 'yidong') {
 		imageName = "image/icon-a.png"
 	} else if (type === 'ticai') {
 		imageName = "image/icon-a.png"

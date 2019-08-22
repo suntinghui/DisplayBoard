@@ -22,6 +22,22 @@
 
 	<!-- 过滤条件部分，放在body最外层-->
 	<form id="filterForm" class="layui-form" style="padding: 20px; display: none;">
+	
+		<!-- 渠道 -->
+		<div class="layui-form-item">
+			<div class="layui-input-block" style="margin-left: 20px; margin-bottom: 30px;">
+				<input id="qudaoCheck" type="checkbox" lay-filter="showType" name="showType" value="qudao" title="渠道">
+			</div>
+		</div>
+		
+		<div class="layui-form-item m-l-20">
+			<label class="layui-form-label">机器类型</label>
+			<div class="layui-input-inline select" id="qudao_type"></div>
+			<button type="button" id="qudao_type_all" class="layui-btn layui-btn-sm">全选</button>
+			<button type="button" id="qudao_type_reset" class="layui-btn layui-btn-sm layui-btn-danger">重置</button>
+		</div>
+		
+		<div class="hline"></div>
 
 		<!-- 移动 -->
 		<div class="layui-form-item">
@@ -140,75 +156,75 @@
 	<script type="text/javascript" src="https://a.amap.com/jsapi_demos/static/demo-center/data/mock_position.js"></script>
 
 	<script type="text/javascript">
-			var layer = null;
-			var markers = [];
+		var layer = null;
+		var markers = [];
+		
+		var map = new AMap.Map('map', {
+			zoom: 12,
+			showLabel: true,
+			expandZoomRange: true,
+			center: [116.397477, 39.908692],
+			viewMode: '2D',
+			pitch: 60,
+			// https://lbs.amap.com/api/javascript-api/example/personalized-map/set-theme-style
+			mapStyle: 'amap://styles/darkblue',
+		});
+
+		// 同时引入工具条插件，比例尺插件和鹰眼插件
+		AMap.plugin([
+			'AMap.ToolBar',
+			'AMap.Scale',
+			'AMap.OverView',
+			'AMap.MapType',
+			'AMap.Geolocation',
+		], function() {
+			// 在图面添加工具条控件，工具条控件集成了缩放、平移、定位等功能按钮在内的组合控件
+			map.addControl(new AMap.ToolBar());
+			// 在图面添加比例尺控件，展示地图在当前层级和纬度下的比例尺
+			map.addControl(new AMap.Scale());
+			// 在图面添加鹰眼控件，在地图右下角显示地图的缩略图
+			map.addControl(new AMap.OverView({
+				isOpen: true
+			}));
+			// 在图面添加类别切换控件，实现默认图层与卫星图、实施交通图层之间切换的控制
+			map.addControl(new AMap.MapType());
+			// 在图面添加定位控件，用来获取和展示用户主机所在的经纬度位置
+			map.addControl(new AMap.Geolocation());
+		});
+
+		map.on('complete', function() {
+			// 创建 AMap.LabelsLayer 图层
+			layer = new AMap.LabelsLayer({
+				zooms: [3, 20],
+				zIndex: 1000,
+				// 关闭标注避让，默认为开启，v1.4.15 新增属性
+				animation: true,
+				// 关闭标注淡入动画，默认为开启，v1.4.15 新增属性
+				collision: true
+			});
+			map.setDefaultCursor("crosshair");
+
+			map.add(layer);
 			
-			var map = new AMap.Map('map', {
-				zoom: 12,
-				showLabel: true,
-				expandZoomRange: true,
-				center: [116.397477, 39.908692],
-				viewMode: '2D',
-				pitch: 60,
-				// https://lbs.amap.com/api/javascript-api/example/personalized-map/set-theme-style
-				mapStyle: 'amap://styles/darkblue',
-			});
+			refreshData();
 
-			// 同时引入工具条插件，比例尺插件和鹰眼插件
-			AMap.plugin([
-				'AMap.ToolBar',
-				'AMap.Scale',
-				'AMap.OverView',
-				'AMap.MapType',
-				'AMap.Geolocation',
-			], function() {
-				// 在图面添加工具条控件，工具条控件集成了缩放、平移、定位等功能按钮在内的组合控件
-				map.addControl(new AMap.ToolBar());
-				// 在图面添加比例尺控件，展示地图在当前层级和纬度下的比例尺
-				map.addControl(new AMap.Scale());
-				// 在图面添加鹰眼控件，在地图右下角显示地图的缩略图
-				map.addControl(new AMap.OverView({
-					isOpen: true
-				}));
-				// 在图面添加类别切换控件，实现默认图层与卫星图、实施交通图层之间切换的控制
-				map.addControl(new AMap.MapType());
-				// 在图面添加定位控件，用来获取和展示用户主机所在的经纬度位置
-				map.addControl(new AMap.Geolocation());
-			});
+		});
+		
+		var infoWindow = new AMap.InfoWindow({
+			offset: new AMap.Pixel(0, -30),
+			autoMove: true,
+			isCustom: false,
+			closeWhenClickMap:false,
+			size: [200, 0]
+		});
 
-			map.on('complete', function() {
-				// 创建 AMap.LabelsLayer 图层
-				layer = new AMap.LabelsLayer({
-					zooms: [3, 20],
-					zIndex: 1000,
-					// 关闭标注避让，默认为开启，v1.4.15 新增属性
-					animation: true,
-					// 关闭标注淡入动画，默认为开启，v1.4.15 新增属性
-					collision: true
-				});
-				map.setDefaultCursor("crosshair");
-
-				map.add(layer);
-				
-				refreshData();
-
-			});
+		function markerClick(e) {
+			infoWindow.setContent(e.target.content);
+			infoWindow.open(map, e.target.getPosition());
 			
-			var infoWindow = new AMap.InfoWindow({
-				offset: new AMap.Pixel(0, -30),
-				autoMove: true,
-				isCustom: false,
-				closeWhenClickMap:false,
-				size: [200, 0]
-			});
-
-			function markerClick(e) {
-				infoWindow.setContent(e.target.content);
-				infoWindow.open(map, e.target.getPosition());
-				
-				resetCount();
-			}
-		</script>
+			resetCount();
+		}
+	</script>
 
 	<script type="text/javascript">
 			var filterLayer = null;
@@ -235,7 +251,7 @@
 		</script>
 
 	<script type="text/javascript">
-			var yidong_type, yidong_area, ticai_area, fucai8_shopType, fucai8_danji, fucai8_wangdian, fucai9_area,
+			var qudao_type, yidong_type, yidong_area, ticai_area, fucai8_shopType, fucai8_danji, fucai8_wangdian, fucai9_area,
 				fucai9_shopType;
 
 			layui.config({
@@ -248,6 +264,14 @@
 				var form = layui.form,
 					selectN = layui.selectN,
 					selectM = layui.selectM;
+				
+				qudao_type = selectM({
+					elem: '#qudao_type',
+					data: qudao_typeData,
+					tips: '请选择机器类型',
+					max: qudao_typeData.length,
+					verify: 'required'
+				})
 
 				yidong_type = selectM({
 					elem: '#yidong_type',
@@ -316,6 +340,20 @@
 		</script>
 
 	<script>
+			$('#qudao_type').click(function () {
+				toggelCheck('qudao')
+			})
+			
+			$('#qudao_type_all').click(function(){
+				qudao_type.set(getQudaoTypeKeyArr());
+				toggelCheck('qudao')
+			})
+			
+			$('#qudao_type_reset').click(function(){
+				qudao_type.set();
+				toggelCheck('qudao')
+			})
+	
 			$('#yidong_type').click(function () {
 				toggelCheck('yidong')
 			})
@@ -449,23 +487,35 @@
 			})
 			
 			function toggelCheck(type) {
-				 if (type == 'yidong') {
+				if (type == 'qudao') {
+					 $("#qudaoCheck").prop("checked", true);
+					 $("#yidongCheck").prop("checked", false);
+					 $('#ticaiCheck').prop("checked", false);
+					 $('#fucai8Check').prop("checked", false);
+					 $('#fucai9Check').prop("checked", false);
+					 
+				} else if (type == 'yidong') {
+					$("#qudaoCheck").prop("checked", true);
+					$("#qudaoCheck").prop("checked", false);
 					 $("#yidongCheck").prop("checked", true);
 					 $('#ticaiCheck').prop("checked", false);
 					 $('#fucai8Check').prop("checked", false);
 					 $('#fucai9Check').prop("checked", false);
 				 } else  if (type == 'ticai') {
 					 $("#ticaiCheck").prop("checked", true);
+					 $("#qudaoCheck").prop("checked", false);
 					 $('#yidongCheck').prop("checked", false);
 					 $('#fucai8Check').prop("checked", false);
 					 $('#fucai9Check').prop("checked", false);
 				 } else  if (type == 'fucai8') {
 					 $("#fucai8Check").prop("checked", true);
+					 $("#qudaoCheck").prop("checked", false);
 					 $('#ticaiCheck').prop("checked", false);
 					 $('#yidongCheck').prop("checked", false);
 					 $('#fucai9Check').prop("checked", false);
 				 } else  if (type == 'fucai9') {
 					 $("#fucai9Check").prop("checked", true);
+					 $("#qudaoCheck").prop("checked", false);
 					 $('#ticaiCheck').prop("checked", false);
 					 $('#fucai8Check').prop("checked", false);
 					 $('#yidongCheck').prop("checked", false);
@@ -478,8 +528,6 @@
 			}
 			
 			function submitAction() {
-				console.log("--"+filterLayer.index)
-				
 				var arr = new Array();
 	            $("input:checkbox[name='showType']:checked").each(function(i){
 	                arr[i] = $(this).val();
@@ -494,6 +542,15 @@
 				}
 				
 				var showTypeStr = arr[0];
+				
+				if (showTypeStr === 'qudao') {
+					if (qudao_type.values.length == 0) {
+						showTips('请选择机器类型')
+					} else {
+						getQudaoInfo();
+						filterLayer.close(closeIndex);
+					}
+				}
 				
 				if (showTypeStr === 'yidong') {
 					if (yidong_type.values.length == 0) {
@@ -547,11 +604,10 @@
 		window.onload = function() {
 			
 			// 初始化显示
-			yidong_area.set(getYidongAreaKeyArr());
-			yidong_type.set(getYidongTypeKeyArr());
-			toggelCheck('yidong')
+			qudao_type.set(getQudaoTypeKeyArr());
+			toggelCheck('qudao')
 			
-			getYidongInfo();
+			getQudaoInfo();
 
 			// 后续每隔一定时间自动刷新所有数据
 			setInterval(refreshData, 24*60*60*1000);
@@ -560,11 +616,61 @@
 		// 刷新数据统一入口
 		function refreshData() {
 			layer.clear()
+		}
+	</script>
+	
+	<!-- 渠道 -->
+	<script type="text/javascript">
+		function getQudaoInfo() {
+			showLoading();
 			
-			//getYidongInfo();
-			//getTicaiList();
-			//getFucai8List();
-			//getFucai9List();
+			$.ajax({
+				url : "getQudaoList",
+				type : "POST",
+				data : {
+					typeArr : JSON.stringify(qudao_type.values),
+				},
+				error : function(xmlHttpRequest, error) {
+					hideLoading();
+				},
+				success : function(resp) {
+					console.log(JSON.stringify(resp));
+					
+					var data = resp['qudao'];
+					
+					markers = [];
+					layer.clear();
+					
+					showTipWithCtrl('共检索到'+data.length+'条数据', "#filterImg");
+
+					for (var i = 0; i < data.length; i++) {
+						var item = data[i];
+						
+						if (item.sHOP_Position.length < 12) {
+							continue;
+						}
+						
+						var curData = {
+							position: item.sHOP_Position,
+							icon: getImgWithType('qudao')
+						};
+
+						var labelMarker = new AMap.LabelMarker(curData);
+
+						labelMarker.content = '<div>名称：'+item.sHOP_Title+'</div><div>地址：'+item.sHOP_Address+'</div><div>类型：'+item.dDI_Type+'</div><div>销售额：'+item.sum_mony+'</div><div>排名：'+item.sum_order+'</div>';
+						labelMarker.on('click', markerClick);
+						labelMarker.emit('click', {
+							target: labelMarker
+						});
+
+						markers.push(labelMarker);
+					}
+
+					layer.add(markers);
+					
+					hideLoading();
+				}
+			});
 		}
 	</script>
 

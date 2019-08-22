@@ -9,6 +9,10 @@
 		${sql}
 	</select>
 	
+	<select id="getQudaoList" resultType="com.univo.display.pojo.QudaoInfo">
+		${sql}
+	</select>
+	
 	<select id="getYidongList" resultType="com.univo.display.pojo.YidongInfo">
 		${sql}
 	</select>

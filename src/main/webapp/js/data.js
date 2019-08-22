@@ -1,3 +1,26 @@
+var qudao_typeData = [{
+	"id": "A",
+	"name": "A"
+}, {
+	"id": "B",
+	"name": "B"
+}, {
+	"id": "D",
+	"name": "D"
+}, {
+	"id": "M",
+	"name": "M"
+}];
+
+function getQudaoTypeKeyArr() {
+	var arr = new Array();
+	for (var index in qudao_typeData) {
+		arr.push(qudao_typeData[index]['id'])
+	}
+	
+	return arr;
+}
+
 var yidong_typeData = [{
 	"id": "专区",
 	"name": "专区"

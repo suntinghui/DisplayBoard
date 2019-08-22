@@ -17,6 +17,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.univo.display.pojo.Fucai8Info;
 import com.univo.display.pojo.Fucai9Info;
+import com.univo.display.pojo.QudaoInfo;
 import com.univo.display.pojo.TicaiInfo;
 import com.univo.display.pojo.YidongInfo;
 import com.univo.display.service.GISInfoService;
@@ -32,6 +33,18 @@ public class GISController {
 	@RequestMapping("/gis")
 	public String queryCount() {
 		return "gis";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "getQudaoList", produces = "application/json; charset=utf-8")
+	public String getQudaoList(@RequestParam("typeArr") String typeArr) {
+		HashMap<String, Object> map = new HashMap<>();
+		
+		List<QudaoInfo> list = gISInfoServiceImpl.getQudaoList(typeArr);
+		map.put("qudao", list);
+		logger.info("list {}", list.size());
+		
+		return JSONObject.toJSONString(map);
 	}
 	
 	@ResponseBody
