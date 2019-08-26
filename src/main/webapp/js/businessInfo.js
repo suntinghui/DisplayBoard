@@ -13,6 +13,8 @@ function showBusinessInfo2(divId, resp) {
 
 function genBusinessOption2(data) {
 	option = {
+		color : [ '#2f4554', '#61a0a8', '#d48265', '#91c7ae', '#749f83',
+				'#ca8622', '#bda29a', '#6e7074', '#546570', '#c4ccd3' ],
 		title : {
 			text : '办理量趋势图',
 			textStyle : {
@@ -38,15 +40,15 @@ function genBusinessOption2(data) {
 			left : '3%',
 			right : '4%',
 			bottom : '10',
-			top : '15%', 
+			top : '15%',
 			containLabel : true
 		},
 		xAxis : [ {
 			type : 'category',
 			data : data.dtList,
-			axisTick: {
-                alignWithLabel: true
-            },
+			axisTick : {
+				alignWithLabel : true
+			},
 		} ],
 		yAxis : [ {
 			type : 'value',
@@ -80,7 +82,7 @@ function genBusinessOption2(data) {
 					verticalAlign : "middle",
 					formatter : function(params) {
 						var tip;
-						var yy = (data.wowList[params.dataIndex] - 0)*100;
+						var yy = (data.wowList[params.dataIndex] - 0) * 100;
 						if (yy > 0) {
 							tip = '{u|上升' + yy.toFixed(0) + '%}\n';
 						} else {

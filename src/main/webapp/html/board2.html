@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" href="https://a.amap.com/jsapi_demos/static/demo-center/css/demo-center.css" />
+<title>数据展板V2</title>
+
+<link rel="shortcut icon" href="image/favicon.png">
+<link rel="stylesheet" type="text/css" href="css/style2.css" />
+<link rel="stylesheet" type="text/css" href="css/weui.min.css" />
+
+
+</head>
+
+<body>
+	<script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/echarts.min.js"></script>
+	<script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts-gl/echarts-gl.min.js"></script>
+	<script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts-stat/ecStat.min.js"></script>
+	<script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/dataTool.min.js"></script>
+	<script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/china.js"></script>
+	<script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/world.js"></script>
+	<script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/bmap.min.js"></script>
+	<script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/simplex.js"></script>
+	<script src="js/map.js"></script>
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script type="text/javascript" src="js/theme/shine.js"></script>
+	<script src="https://cache.amap.com/lbs/static/es5.min.js"></script>
+	<script type="text/javascript" src="https://webapi.amap.com/maps?v=1.4.15&key=4e3ca29c249a5a4bcde8b5e9bfe23ac6&&plugin=AMap.Scale,AMap.OverView,AMap.ToolBar,AMap.DistrictLayer"></script>
+	<script type="text/javascript" src="https://a.amap.com/jsapi_demos/static/demo-center/data/mock_position.js"></script>
+	
+	<script type="text/javascript" src="js/bSellInfo.js"></script>
+	<script type="text/javascript" src="js/bDeviceStatis.js"></script>
+	<script type="text/javascript" src="js/bChannelStatis.js"></script>
+	<script type="text/javascript" src="js/bInvoicingInfo.js"></script>
+	
+	<div class="title" onclick="getQudaoInfo()">自动终端运营展板</div>
+	<div class="content">
+		<div class="left">
+			<p class="chart-title">用户统计</p>
+			<div class="userdiv" style="width:100%; height:20%;">
+					<div class="user-info">
+						<div class="user-title">日新增用户（人）</div>
+						<div id="user_add_day" class="user-value">0</div>
+					</div>
+					<div class="user-info">
+						<div class="user-title">周新增用户（人）</div>
+						<div id="user_add_week" class="user-value">0</div>
+					</div>
+					<div class="user-info">
+						<div class="user-title">月新增用户（人）</div>
+						<div id="user_add_month" class="user-value">0</div>
+					</div>
+					<div class="user-info">
+						<div class="user-title">累计总用户（人）</div>
+						<div id="user_total" class="user-value">0</div>
+					</div>
+				</div>
+				
+			<p class="chart-title">销售额统计</p>
+			<div style="width:100%; height:40%;" id="sellInfoDiv"></div>
+			
+			<p class="chart-title">进销存统计</p>
+			<div style="width:100%; height:30%;" id="invoicingInfoDiv"></div>
+			
+		</div>
+		
+		<div id="map" class="center">
+			
+		</div>
+		
+		<div class="right">
+			<p class="chart-title">设备统计</p>
+			<div style="width:100%; height:30%;" id="deviceStatisDiv"></div>
+			
+			<p class="chart-title">渠道统计-M型</p>
+			<div style="width:100%; height:30%;" id="channelStatisMDiv"></div>
+			
+			<p class="chart-title">渠道统计-D型</p>
+			<div style="width:100%; height:45%;" id="channelStatisDDiv"></div>
+			
+		</div>
+	</div>
+	
+	<script type="text/javascript">
+		var layerm= null;
+		var markers = [];
+		
+		var map = new AMap.Map('map', {
+			zoom: 8,
+			showLabel: true,
+			expandZoomRange: true,
+			center: [116.397477, 39.908692],
+			viewMode: '2D',
+			pitch: 60,
+			// https://lbs.amap.com/api/javascript-api/example/personalized-map/set-theme-style
+			mapStyle: 'amap://styles/a7b2c8f6564f7f0ac8fd9eade3969fe6'
+		});
+		
+		map.on('complete', function() {
+			// 创建 AMap.LabelsLayer 图层
+			layerm = new AMap.LabelsLayer({
+				zooms: [3, 20],
+				zIndex: 1000,
+				// 关闭标注避让，默认为开启，v1.4.15 新增属性
+				animation: true,
+				// 关闭标注淡入动画，默认为开启，v1.4.15 新增属性
+				collision: true
+			});
+			map.setDefaultCursor("crosshair");
+	
+			map.add(layerm);
+			
+			refreshData();
+	
+		});
+		
+		var disProvince = new AMap.DistrictLayer.Province({
+		    zIndex:8,
+		    adcode:['110000'],
+		    depth:2,
+		    styles:{
+		        'fill':function(properties){
+		            var adcode = properties.adcode;
+		            return getColorByAdcode(adcode);
+		        },
+		        'province-stroke':'cornflowerblue',
+		        'city-stroke': 'white',//中国地级市边界
+		        'county-stroke': 'rgba(255,255,255,0.5)'//中国区县边界  
+		    }
+		})
+		
+		disProvince.setMap(map);
+		
+		 // 颜色辅助方法
+	    var colors = {};
+	    var getColorByAdcode = function (adcode) {
+	        if (!colors[adcode]) {
+	            var gb = Math.random() * 155 + 50;
+	            colors[adcode] = 'rgb(' + gb + ',' + gb + ',255)';
+	        }
+
+	        return colors[adcode];
+	    };
+		
+		var infoWindow = new AMap.InfoWindow({
+			offset: new AMap.Pixel(0, -30),
+			autoMove: true,
+			isCustom: false,
+			closeWhenClickMap:false,
+			size: [200, 0]
+		});
+	
+		function markerClick(e) {
+			infoWindow.setContent(e.target.content);
+			infoWindow.open(map, e.target.getPosition());
+		}
+	
+	</script>
+	
+	<script type="text/javascript">
+	
+		function refreshData() {
+			getQudaoInfo();
+			getSellInfo();
+			getDeviceStatis();
+			getChannelMStatis();
+			getChannelDStatis();
+			getUserInfo();
+			getInvoicingInfo();
+		}
+		
+	</script>
+	
+	<!-- 地图:渠道信息 -->
+	<script type="text/javascript">
+	function getQudaoInfo() {
+		
+		$.ajax({
+			url : "getQudaoList2",
+			type : "POST",
+			data : {
+				typeArr : '["A","B","D","M"]',
+			},
+			error : function(xmlHttpRequest, error) {
+			},
+			success : function(resp) {
+				console.log(JSON.stringify(resp));
+				
+				var data = resp['qudao'];
+				
+				markers = [];
+				layerm.clear();
+				
+				for (var i = 0; i < data.length; i++) {
+					var item = data[i];
+					
+					if (item.sHOP_Position.length < 12) {
+						continue;
+					}
+					
+					var curData = {
+						position: item.sHOP_Position,
+						icon: getImgWithType("qudao")
+					};
+
+					var labelMarker = new AMap.LabelMarker(curData);
+
+					labelMarker.content = '<div>名称：'+item.sHOP_Title+'</div><div>地址：'+item.sHOP_Address+'</div><div>类型：'+item.dDI_Type+'</div><div>销售额：'+item.sum_mony+'</div><div>排名：'+item.sum_order+'</div>';
+					labelMarker.on('click', markerClick);
+					labelMarker.emit('click', {
+						target: labelMarker
+					});
+
+					markers.push(labelMarker);
+				}
+
+				layerm.add(markers);
+				
+			}
+		});
+	}
+	</script>
+	
+	<!-- 销售额  -->
+	<script type="text/javascript">
+		function getSellInfo() {
+			$.ajax({
+				url : "getSellInfo",
+				type : "GET",
+				error : function(xmlHttpRequest, error) {
+				},
+				success : function(resp) {
+					console.log(resp);
+					showSellInfo("sellInfoDiv", resp);
+				}
+			});
+			
+		}
+	</script>
+	
+	<!-- 设备统计 -->
+	<script type="text/javascript">
+		function getDeviceStatis() {
+			$.ajax({
+				url : "getDeviceStatis",
+				type : "GET",
+				error : function(xmlHttpRequest, error) {
+				},
+				success : function(resp) {
+					console.log(resp);
+					
+					showDeviceStatis('deviceStatisDiv', resp);
+				}
+			});
+			
+		}
+	</script>
+	
+	<!-- 渠道统计  M -->
+	<script type="text/javascript">
+		function getChannelMStatis() {
+			$.ajax({
+				url : "getChannelMStatis",
+				type : "GET",
+				error : function(xmlHttpRequest, error) {
+				},
+				success : function(resp) {
+					console.log(resp);
+					
+					showChannelStatis('channelStatisMDiv', resp);
+				}
+			});
+			
+		}
+	</script>
+	
+	<!-- 渠道统计  D -->
+	<script type="text/javascript">
+		function getChannelDStatis() {
+			$.ajax({
+				url : "getChannelDStatis",
+				type : "GET",
+				error : function(xmlHttpRequest, error) {
+				},
+				success : function(resp) {
+					console.log(resp);
+					
+					showChannelStatis('channelStatisDDiv', resp);
+				}
+			});
+			
+		}
+	</script>
+	
+	<!-- 用户信息 -->
+	<script type="text/javascript">
+		function getUserInfo() {
+			$.ajax({
+				url : "getUserInfo",
+				type : "GET",
+				error : function(xmlHttpRequest, error) {
+				},
+				success : function(resp) {
+					console.log(resp);
+					
+					$("#user_add_day").html(resp['user_add_day']);
+					$("#user_add_week").html(resp['user_add_week']);
+					$("#user_add_month").html(resp['user_add_month']);
+					$("#user_total").html(resp['user_total']);
+				}
+			});
+			
+		}
+	</script>
+	
+	
+	<!-- 进销存 -->
+	<script type="text/javascript">
+		function getInvoicingInfo() {
+			$.ajax({
+				url : "getInvoicingInfo",
+				type : "GET",
+				error : function(xmlHttpRequest, error) {
+				},
+				success : function(resp) {
+					console.log(resp);
+					
+					showInvoicingInfo('invoicingInfoDiv', resp);
+				}
+			});
+			
+		}
+	</script>
+	
+	
+
+</body>
+
+</html>

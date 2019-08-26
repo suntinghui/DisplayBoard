@@ -54,18 +54,3 @@ function showTipWithCtrl (msg, id) {
 		layer.tips(msg, id);
 	});
 }
-
-var loadingIndex = 0;
-function showLoading () {
-	layui.use('layer', function() {
-		var layer = layui.layer;
-		loadingIndex = layer.load(1);
-	});
-}
-
-function hideLoading() {
-	layui.use('layer', function() {
-		var layer = layui.layer;
-		layer.closeAll('loading'); 
-	});
-}
