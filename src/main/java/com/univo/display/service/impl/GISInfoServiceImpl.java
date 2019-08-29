@@ -34,7 +34,7 @@ public class GISInfoServiceImpl implements GISInfoService {
 		}
 
 		StringBuffer sql = new StringBuffer();
-		sql.append("select p.SHOP_Title,ifnull(t.sum_mony,0) sum_mony,ifnull(t.sum_order,0) sum_order,p.SHOP_Address,p.SHOP_Position,DDI_Type,b.AGNT_Title ");
+		sql.append("select p.SHOP_Title,ifnull(t.sum_mony,0) sum_mony,ifnull(t.sum_order,0) sum_order,p.SHOP_Address,p.SHOP_Position,DDI_Type ");
 		sql.append("from ");
 		sql.append("(select a.ODER_SPUid,sum(a.ODER_Money) sum_mony,count(a.ODER_Uid) sum_order ");
 		sql.append("from t_shop_order_info a ");
@@ -60,7 +60,7 @@ public class GISInfoServiceImpl implements GISInfoService {
 		sql.append("left join netfiance_db.t_shop_agent_list b  ");
 		sql.append("on a.SHOP_AGUid = b.AGNT_Uid ");
 
-		logger.debug("qudao:{}", sql);
+		logger.info("qudao:{}", sql);
 
 		CustomerContextHolder.setCustomerType(CustomerContextHolder.DATA_SOURCE_A);
 		return mainMapper.getQudaoList(new HashMap() {

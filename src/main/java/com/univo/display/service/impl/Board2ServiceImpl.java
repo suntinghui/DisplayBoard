@@ -185,11 +185,23 @@ public class Board2ServiceImpl implements Board2Service {
 	@Override
 	public List<Map<String, Object>> current_offline() {
 		StringBuffer sql = new StringBuffer();
-		sql.append(" select count(a.DDI_Uid) offline_device ");
+		sql.append(" select count(distinct(offline_device)) offline_device ");
+		sql.append(" from ");
+		sql.append(" ( ");
+		sql.append(" select a.DDI_Did offline_device ");
 		sql.append(" from t_device_device_info a ");
 		sql.append(" where ((a.DDI_Type in ('A','B','C','D') and TIMESTAMPDIFF(MINUTE,a.ModifyDate,now()) > 15) ");
 		sql.append(" or (a.DDI_Type = 'M' and a.DDI_Channel is null)) ");
-		sql.append(" and exists (select * from t_storage_checkout_packages e where e.device_no = a.DDI_No) ");
+		sql.append(" and a.DDI_Did in ");
+		sql.append(" (select distinct b.DDI_Did ");
+		sql.append(" from t_device_sub_list a left join t_device_device_info b ");
+		sql.append(" on a.DSL_DUid = b.DDI_Uid ");
+		sql.append(" left join t_shop_shop_info c ");
+		sql.append(" on c.SHOP_Uid = b.DDI_SPUid ");
+		sql.append(" where b.DDI_SPUid in (select SHOP_Uid from t_shop_shop_info where SHOP_State = 1) ");
+		sql.append(" and SHOP_Title <> '公司总部' ");
+		sql.append(" and exists (select * from t_storage_checkout_packages e where e.device_no = b.DDI_No)    ) ) t ");
+		sql.append(" where offline_device<>'' ; ");
 
 		return mainMapper.selectBySql(new HashMap() {
 			{
@@ -264,17 +276,22 @@ public class Board2ServiceImpl implements Board2Service {
 	@Override
 	public List<Map<String, Object>> m_offline() {
 		StringBuffer sql = new StringBuffer();
-		sql.append(" select count(a.DDI_Uid) M_offline_device ");
+		sql.append(" select count(distinct(M_offline_device)) M_offline_device ");
+		sql.append(" from ");
+		sql.append(" ( ");
+		sql.append(" select a.DDI_Did M_offline_device ");
 		sql.append(" from t_device_device_info a ");
 		sql.append(" where  (a.DDI_Type = 'M' and a.DDI_Channel is null) ");
-		sql.append(" and a.DDI_Did in (select distinct b.DDI_Did ");
+		sql.append(" and a.DDI_Did in ");
+		sql.append(" (select distinct b.DDI_Did ");
 		sql.append(" from t_device_sub_list a left join t_device_device_info b ");
 		sql.append(" on a.DSL_DUid = b.DDI_Uid ");
 		sql.append(" left join t_shop_shop_info c ");
 		sql.append(" on c.SHOP_Uid = b.DDI_SPUid ");
 		sql.append(" where b.DDI_SPUid in (select SHOP_Uid from t_shop_shop_info where SHOP_State = 1) ");
 		sql.append(" and SHOP_Title <> '公司总部' ");
-		sql.append(" and exists (select * from t_storage_checkout_packages e where e.device_no = b.DDI_No)); ");
+		sql.append(" and exists (select * from t_storage_checkout_packages e where e.device_no = b.DDI_No)    ) ) t ");
+		sql.append(" where M_offline_device<>'' ; ");
 
 		return mainMapper.selectBySql(new HashMap() {
 			{
@@ -354,7 +371,9 @@ public class Board2ServiceImpl implements Board2Service {
 	@Override
 	public List<Map<String, Object>> d_offline() {
 		StringBuffer sql = new StringBuffer();
-		sql.append(" select count(a.DDI_Uid) D_offline_device ");
+		sql.append(" select count(distinct(D_offline_device)) D_offline_device ");
+		sql.append(" from ");
+		sql.append(" (select a.DDI_Did D_offline_device ");
 		sql.append(" from t_device_device_info a ");
 		sql.append(" where  (a.DDI_Type = 'D' and TIMESTAMPDIFF(MINUTE,a.ModifyDate,now()) > 15) ");
 		sql.append(" and a.DDI_Did in (select distinct b.DDI_Did ");
@@ -364,7 +383,8 @@ public class Board2ServiceImpl implements Board2Service {
 		sql.append(" on c.SHOP_Uid = b.DDI_SPUid ");
 		sql.append(" where b.DDI_SPUid in (select SHOP_Uid from t_shop_shop_info where SHOP_State = 1) ");
 		sql.append(" and SHOP_Title <> '公司总部' ");
-		sql.append(" and exists (select * from t_storage_checkout_packages e where e.device_no = b.DDI_No)); ");
+		sql.append(" and exists (select * from t_storage_checkout_packages e where e.device_no = b.DDI_No)   ) )t ");
+		sql.append(" where D_offline_device <> ''; ");
 
 		return mainMapper.selectBySql(new HashMap() {
 			{

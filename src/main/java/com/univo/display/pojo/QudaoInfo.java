@@ -45,5 +45,4 @@ public class QudaoInfo {
 		SHOP_Position = sHOP_Position;
 	}
 	
-	
 }

@@ -233,14 +233,15 @@ html, body {
 .title {
 	width:100%;
 	text-align:center;
-	font-size:30px;
+	font-size:56px;
 	color:#6afaff;
+	margin-top: 15px;
 }
 
 .content {
 	width:100%;
-	height:90%;
-	margin-top: 15px;
+	height:85%;
+	margin-top: 20px;
 	display: flex;
 	flex-direction: row;
 	justify-content: center;
@@ -250,25 +251,25 @@ html, body {
 	background:rgba(0,0,0,0.5);
 	width:28%;
 	height: 100%;
-	margin-right: 20px;
-	border-radius: 5px;
+	margin-right: 0px;
+	border-radius: 5px 0 0 5px;
 	display: flex;
 	flex-direction: column;
 	justify-content: space-around;
 }
 
 .center {
-	width:40%;
+	width:42%;
 	height:100%;
-	border-radius: 5px;
+	border-radius: 0px;
 }
 
 .right {
 	background:rgba(0,0,0,0.5);
 	width:28%;
 	height: 100%;
-	margin-left: 20px;
-	border-radius: 5px;
+	margin-left: 0px;
+	border-radius: 0px 5px 5px 0px;
 	display: flex;
 	flex-direction: column;
 	justify-content: space-around;

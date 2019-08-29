@@ -36,7 +36,7 @@
 	<script type="text/javascript" src="js/bChannelStatis.js"></script>
 	<script type="text/javascript" src="js/bInvoicingInfo.js"></script>
 	
-	<div class="title" onclick="getQudaoInfo()">自动终端运营展板</div>
+	<div class="title" onclick="getQudaoInfo()">自助终端运营展板</div>
 	<div class="content">
 		<div class="left">
 			<p class="chart-title">用户统计</p>
@@ -89,14 +89,14 @@
 		var markers = [];
 		
 		var map = new AMap.Map('map', {
-			zoom: 8,
+			zoom: 9,
 			showLabel: true,
 			expandZoomRange: true,
 			center: [116.397477, 39.908692],
 			viewMode: '2D',
 			pitch: 60,
 			// https://lbs.amap.com/api/javascript-api/example/personalized-map/set-theme-style
-			mapStyle: 'amap://styles/a7b2c8f6564f7f0ac8fd9eade3969fe6'
+			mapStyle: 'amap://styles/5dbb0d8af2862a6a64a43e88f2129c5b'
 		});
 		
 		map.on('complete', function() {
@@ -113,8 +113,7 @@
 	
 			map.add(layerm);
 			
-			refreshData();
-	
+			getQudaoInfo();
 		});
 		
 		var disProvince = new AMap.DistrictLayer.Province({
@@ -163,7 +162,8 @@
 	<script type="text/javascript">
 	
 		function refreshData() {
-			getQudaoInfo();
+			console.log('刷新数据......');
+			
 			getSellInfo();
 			getDeviceStatis();
 			getChannelMStatis();
@@ -172,11 +172,22 @@
 			getInvoicingInfo();
 		}
 		
+		// 第一次进入页面首先刷新一遍数据
+		window.onload = function() {
+			refreshData();
+
+			// 后续每隔一定时间自动刷新所有数据
+			setInterval(refreshData, 60*1000);
+			
+			setInterval(getQudaoInfo, 24*60*60*1000);
+		};
+		
 	</script>
 	
 	<!-- 地图:渠道信息 -->
 	<script type="text/javascript">
 	function getQudaoInfo() {
+		console.log('刷新地图......');
 		
 		$.ajax({
 			url : "getQudaoList2",
