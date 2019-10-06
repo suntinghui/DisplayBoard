@@ -1,16 +1,16 @@
 function getImgWithType(type) {
-	var imageName = "image/icon-red.png";
+	var imageName = "image/icon-a.png";
 	
 	if (type === 'qudao') {
-		imageName = "image/icon-a.png"
+		imageName = "image/img-shequ.jpg"
 	} else if (type === 'yidong') {
-		imageName = "image/icon-a.png"
+		imageName = "image/img-yidong.jpg"
 	} else if (type === 'ticai') {
-		imageName = "image/icon-a.png"
+		imageName = "image/img-ticai.jpg"
 	} else if (type === 'fucai8') {
-		imageName = "image/icon-b.png"
+		imageName = "image/img-fucai8.jpg"
 	} else if (type === 'fucai9') {
-		imageName = "image/icon-b.png"
+		imageName = "image/img-fucai9.jpg"
 	}
 
 	return {
