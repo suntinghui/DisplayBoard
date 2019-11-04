@@ -16,7 +16,7 @@
 </head>
 
 <body>
-	<script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/echarts.min.js"></script>
+	<script type="text/javascript" src="js/echarts.min.js"></script>
 	<script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts-gl/echarts-gl.min.js"></script>
 	<script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts-stat/ecStat.min.js"></script>
 	<script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/dataTool.min.js"></script>
@@ -92,7 +92,7 @@
 			zoom: 9,
 			showLabel: true,
 			expandZoomRange: true,
-			center: [116.397477, 39.908692],
+			center: [116.397477, 39.999692],
 			viewMode: '2D',
 			pitch: 60,
 			// https://lbs.amap.com/api/javascript-api/example/personalized-map/set-theme-style
@@ -177,7 +177,7 @@
 			refreshData();
 
 			// 后续每隔一定时间自动刷新所有数据
-			setInterval(refreshData, 60*1000);
+			setInterval(refreshData, 60*60*1000);
 			
 			setInterval(getQudaoInfo, 24*60*60*1000);
 		};
@@ -214,7 +214,7 @@
 					
 					var curData = {
 						position: item.sHOP_Position,
-						icon: getImgWithType("qudao")
+						icon: getImgWithType("common")
 					};
 
 					var labelMarker = new AMap.LabelMarker(curData);

@@ -11,6 +11,8 @@ function getImgWithType(type) {
 		imageName = "image/img-fucai8.jpg"
 	} else if (type === 'fucai9') {
 		imageName = "image/img-fucai9.jpg"
+	} else if (type == "common") {
+		imageName = "image/icon-a.png";
 	}
 
 	return {
